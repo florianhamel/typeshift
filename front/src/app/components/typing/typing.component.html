@@ -1,10 +1,11 @@
 <div class="typing-container"
      [ngClass]="{'valid-input': inputIsValid === true, 'invalid-input': inputIsValid === false}">
-  <p>{{ displayTime }}s</p>
+  <input (change)="updateText()" [(ngModel)]="keyword" placeholder="Search for wikipedia extract...">
+  <p>{{ currentTime.toFixed(1) }}s</p>
   <p>{{ text }}</p>
   <app-prompt [disabled]="sessionValidated" (charInput)="checkInput($event)"></app-prompt>
   <div *ngIf="sessionValidated">
-    <p>wpm: {{ typingStats.wpm }}</p>
-    <p>accuracy: {{ typingStats.accuracy }}</p>
+    <p>wpm: {{ typingData.wpm }}</p>
+    <p>accuracy: {{ typingData.accuracy }}</p>
   </div>
 </div>

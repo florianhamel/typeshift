@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-export interface PromptDto {
+export interface PromptData {
   key: string;
   text: string;
 }
@@ -12,12 +12,13 @@ export interface PromptDto {
 })
 export class PromptComponent {
   @Input() disabled: boolean = false;
-  @Output() charInput: EventEmitter<PromptDto> = new EventEmitter<PromptDto>();
+  @Output() charInput: EventEmitter<PromptData> = new EventEmitter<PromptData>();
 
   text: string = '';
+  ignoredKeys: string[] = ['Dead', 'Shift', 'CapsLock']
 
   processInput(event: any): void {
-    if (event.key === 'Dead') {
+    if (this.ignoredKeys.includes(event.key)) {
       return;
     }
     this.text = event.target.value;

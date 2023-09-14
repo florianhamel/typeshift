@@ -1,9 +1,15 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { PromptDto } from './prompt/prompt.component';
+import { Component, OnInit } from '@angular/core';
+import { PromptData } from './prompt/prompt.component';
+import { HttpClient, HttpParams, HttpParamsOptions } from '@angular/common/http';
 
-export interface TypingStats {
-  wpm: number;
-  accuracy: number;
+export class TypingData {
+  wpm: number = 0;
+  keystrokes: number = 0;
+  keystrokeErrors: number = 0;
+
+  get accuracy(): number {
+    return this.keystrokes > 0 ? 100 - Math.round(this.keystrokeErrors / this.keystrokes * 100) : NaN;
+  }
 }
 
 @Component({
@@ -11,36 +17,70 @@ export interface TypingStats {
   templateUrl: './typing.component.html',
   styleUrls: ['./typing.component.less']
 })
-export class TypingComponent implements OnInit {
-  // @Input() text: string = 'Hey! Here is an é i.e. an e with a \'';
-  @Input() text: string = 'Faster';
+export class TypingComponent {
+  text!: string;
+  keyword: string = '';
+  typingData: TypingData = new TypingData();
 
-  timerStart!: Date;
-  timerId!: number;
-  currentTime: number = 0;
-  displayTime: string = '0.0';
   inputIsValid: boolean | undefined = undefined;
   sessionValidated: boolean = false;
-  typingStats!: TypingStats;
+  timerStarted: boolean = false;
 
-  ngOnInit() {
-    this.timerStart = new Date();
+  timerId!: number;
+  currentTime: number = 0;
+
+  constructor(private readonly http: HttpClient) {
+  }
+
+  updateText(): void {
+    this.currentTime = 0;
+    this.timerStarted = false;
+    clearInterval(this.timerId);
+    setTimeout(() => {
+      if (!this.timerStarted) {
+        this.startTimer();
+      }
+    }, 5000);
+    const url: string = 'https://en.wikipedia.org/api/rest_v1/page/summary/' + this.keyword;
+    const params = {
+      format: 'json'
+    };
+    this.http.get(url, { params })
+      .subscribe((response: any) => {
+        this.text = response.extract;
+      });
+  }
+
+  startTimer(): void {
+    this.timerStarted = true;
+    let start = new Date();
     this.timerId = setInterval(() => {
       let now = new Date();
-      this.currentTime = (now.getTime() - this.timerStart.getTime()) / 1000;
-      this.displayTime = this.currentTime.toFixed(1);
+      this.currentTime = (now.getTime() - start.getTime()) / 1000;
     }, 10);
   }
 
-  checkInput(data: PromptDto): void {
-    if (data.text === this.text) {
+  checkInput(promptData: PromptData): void {
+    if (!this.timerStarted) {
+      this.startTimer();
+    }
+    if (promptData.key !== 'Backspace') { // TODO create enum for all possible keys 'Backspace', 'Dead', etc...
+      this.typingData.keystrokes++;
+    }
+    if (promptData.text === this.text) {
       this.validateSession();
     } else {
-      const subText: string = this.text.substring(0, data.text.length);
-      this.inputIsValid = (subText === data.text);
-      console.log('data', data);
-      console.log(subText === data.text);
+      this.updateSession(promptData);
     }
+  }
+
+  updateSession(promptData: PromptData): void {
+    const subText: string = this.text.substring(0, promptData.text.length);
+    const isNewKeystrokeError: boolean = !!this.inputIsValid && (subText !== promptData.text);
+    if (isNewKeystrokeError) {
+      this.typingData.keystrokeErrors++;
+    }
+    this.inputIsValid = (subText === promptData.text);
   }
 
   validateSession(): void {
@@ -48,8 +88,7 @@ export class TypingComponent implements OnInit {
     clearInterval(this.timerId);
     const words: number = this.text.length / 5;
     const minutes: number = this.currentTime / 60;
-    const wpm: number = Math.round(words / minutes);
-    console.log(words, minutes);
-    this.typingStats = {wpm: wpm, accuracy: 100};
+    this.typingData.wpm = (minutes > 0) ? Math.round(words / minutes) : NaN;
+    console.log(this.typingData.keystrokeErrors);
   }
 }
