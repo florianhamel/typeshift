@@ -3,18 +3,18 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { TypingComponent } from './components/typing/typing.component';
-import { PromptComponent } from './components/typing/prompt/prompt.component';
+import { TypingModule } from './components/typing/typing.module';
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TypingComponent,
-    PromptComponent
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    TypingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
