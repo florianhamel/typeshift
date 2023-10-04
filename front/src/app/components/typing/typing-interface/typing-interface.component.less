@@ -3,13 +3,15 @@
 :host {
   input {
     font-family: @tsw-font;
-    font-size: 1rem;
-    width: 325px;
+    font-size: @tsw-input-font-size;
+    width: 350px;
     height: 25px;
-    border: 1px solid @tsw-black;
+    border: none;
     border-radius: 5px;
     padding: 5px;
     margin: 15px 0 15px 0;
+    outline: 1px solid @tsw-beige;
+    transition: outline-color 120ms;
   }
 
   input:focus {
@@ -21,24 +23,24 @@
     flex-direction: column;
     align-items: center;
     white-space: pre-wrap;
-    //background-color: @tsw-green; // LIGHT
-    background-color: @tsw-dark-green; // DARK
-    border: @tsw-border;
-    border-radius: 7px;
+    background-color: @tsw-green; // LIGHT
+    //background-color: @tsw-dark-green; // DARK
+    box-shadow: 0 0 12px @tsw-dark-green;
+    border-radius: 5px;
     padding: 15px;
     margin-left: auto;
     margin-right: auto;
     width: 50vw;
-    transition: height 200ms ease-in-out;
   }
 
   .text-input {
     font-family: @tsw-font-mono;
-    font-size: 1.2rem;
+    font-size: @tsw-font-size;
     line-height: 30px;
-    padding: 10px;
-    margin: 10px;
-    transition: background-color 80ms, color 80ms, box-shadow 80ms;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 5px;
+    transition: color 120ms, background-color 120ms, box-shadow 120ms;
   }
 
   .text-input:focus {
@@ -46,10 +48,9 @@
   }
 
   .text-input:not(:focus) {
-    color: rgba(@tsw-black, 0.3);
-    background-color: rgba(@tsw-black, 0.02);
+    color: rgba(@tsw-black, 0.2);
+    background-color: rgba(@tsw-black, 0.05);
     box-shadow: 0 0 3px rgba(@tsw-black, 0.3) inset;
-    border-radius: 7px;
   }
 
   .text-input:not(:focus):hover {
