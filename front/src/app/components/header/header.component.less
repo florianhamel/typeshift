@@ -1,3 +1,5 @@
+@import '~src/variables';
+
 :host {
   nav {
     display: flex;
@@ -8,16 +10,24 @@
     height: 5rem;
     padding-left: 20px;
 
+    a {
+      transition: 120ms;
+    }
+
     a:hover {
       text-decoration: underline;
     }
   }
 
   .logo {
+    display: flex;
+    align-items: center;
+    gap: 5px;
     position: absolute;
+    color: @tsw-black;
+    top: 25px;
     left: 50%;
     transform: translateX(-50%);
-    top: 20px;
 
     img {
       width: 150px;
