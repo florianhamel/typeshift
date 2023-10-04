@@ -1,14 +1,14 @@
-<div class="typing-container"
-     [ngClass]="{'valid-input': inputIsValid === true, 'invalid-input': inputIsValid === false}">
-  <input #inputRef (keydown.enter)="updateText()" [(ngModel)]="keyword" placeholder="Search for wikipedia extract...">
-  <p>{{ textRef }}</p>
-  <textarea #textAreaRef onCopy="return false" onPaste="return false;"
-            rows=6 cols=80 placeholder="Type it!"
-            [disabled]="!textRef || sessionValidated"
-            (keyup)="processInput($event)"></textarea>
-  <div class="statistics">
-    <p>wpm: {{ typingData.wpmDisplay() }}</p>
-    <p>accuracy: {{ typingData.accuracyDisplay() }}</p>
-    <p>timer: {{ currentTime.toFixed(0) }}s</p>
+<div class="typing-container">
+  <input #inputRef (keydown.enter)="updateText()" [(ngModel)]="this.session.keyword"
+         placeholder="Search for wikipedia extract...">
+  <div #textInputRef class="text-input" (keydown)="keyPressed($event)" tabindex="0">
+    <ng-container *ngFor="let keystroke of session.keystrokes; index as i">
+      <span class="character" [ngClass]="{ 'correct': isInputCorrect(keystroke),
+        'incorrect': isInputIncorrect(keystroke),
+        'current': isCurrent(i) }">{{ keystroke.source }}</span>
+    </ng-container>
   </div>
+  <app-typing-data [accuracy]="session.accuracy"
+                   [seconds]="session.seconds"
+                   [wpm]="session.wpm"></app-typing-data>
 </div>

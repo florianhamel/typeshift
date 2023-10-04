@@ -2,14 +2,9 @@
   input {
     font-family: 'Inter', 'SF Mono', 'Avenir', sans-serif;
     width: 200px;
-  }
-
-  textarea {
-    font-family: 'Inter', 'SF Mono', 'Avenir', sans-serif;;
+    height: 25px;
     border: 2px solid black;
-    border-radius: 4px;
-    background-color: lightcyan;
-    width: 100%;
+    border-radius: 5px;
   }
 
   .typing-container {
@@ -17,19 +12,37 @@
     flex-direction: column;
     align-items: center;
     white-space: pre-wrap;
+    background-color: rgba(#D4F6DE, 0.75);
+    //background-color: rgba(darkgreen, 0.75);
     border: 2px solid black;
-    border-radius: 3px;
+    border-radius: 21px;
+    box-shadow: 0 0 2px rgba(black, 0.2);
     padding: 15px;
     margin-left: auto;
     margin-right: auto;
     width: 60vw;
   }
 
-  .valid-input {
-    background-color: lightgreen;
+  .text-input {
+    font-family: 'SF Mono', 'Odudo Mono', Monoflow, Monospaced, sans-serif;
+    font-size: 1.4rem;
+    line-height: 30px;
+    padding: 10px;
+    margin: 10px;
+    position: relative;
   }
 
-  .invalid-input {
-    background-color: lightcoral;
+  .correct {
+    color: #83DF8C;
+  }
+
+  .incorrect {
+    background-color: rgba(lightcoral, 0.15);
+    color: lightcoral;
+  }
+
+  .current {
+    color: black !important;
+    border-bottom: 1.5px solid black;
   }
 }
