@@ -1,46 +1,27 @@
 :host {
   nav {
     display: flex;
-    justify-content: center;
     align-items: center;
-    gap: 20px;
-    border: 2px solid black;
-    border-radius: 42px;
-    box-shadow: 0 0 2px rgba(black, 0.2);
-    background-color: rgba(#D4F6DE, 0.75);
-    //background-color: rgba(darkgreen, 0.75);
+    gap: 42px;
     margin-bottom: 50px;
     width: 40vw;
     height: 5rem;
-  }
+    padding-left: 20px;
 
-  .header-container {
-    display: flex;
-    justify-content: center;
+    a:hover {
+      text-decoration: underline;
+    }
   }
 
   .logo {
     position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
     top: 20px;
-    left: 30px;
 
     img {
       width: 150px;
       height: auto;
     }
-  }
-
-  .nav-item {
-    border-radius: 42px;
-    border: 1px solid black;
-    box-shadow: 0 0 2px rgba(black, 0.2);
-    background-color: rgba(#83DF8C, 0.2);
-    padding: 10px;
-    transition: background-color 100ms;
-  }
-
-  .nav-item:hover {
-    background-color: rgba(#83DF8C, 0.6);
-    cursor: pointer;
   }
 }

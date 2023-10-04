@@ -12,7 +12,7 @@ export class TypingDataComponent {
   @Input() seconds: number = NaN;
 
   formatWpm(): string {
-    return (isNaN(this.wpm) || this.wpm < 5) ? 'N/A' : this.wpm.toFixed() + ' wpm';
+    return (isNaN(this.wpm) || this.wpm < 5) ? 'N/A' : this.wpm.toFixed() + ' w/m';
   }
 
   formatAccuracy(): string {
