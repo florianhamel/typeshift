@@ -15,12 +15,14 @@ export class TypingInterfaceComponent {
   @ViewChild('inputRef') inputRef!: ElementRef;
 
   session: TypingSession = new TypingSession();
+  isLoading: boolean = false;
 
   constructor(private readonly wikiService: WikiService,
               @Inject(KEYBOARD_LAYOUT_TOKEN) private readonly keyboard: IKeyboardLayout) {
   }
 
   updateText(): void { // TODO extract data source from typing interface
+    this.isLoading = true;
     this.wikiService.getWikiExtract(this.session.keyword).subscribe({
       next: (wikiExtract: string): void => this.setupText(wikiExtract),
       error: (): void => this.setupText('Oupsi! That\'s a 404 (Not Found)! Let\'s type this while you\'re here.')
@@ -53,8 +55,6 @@ export class TypingInterfaceComponent {
   isCurrent(index: number): boolean {
     return (index === this.session.index);
   }
-
-  protected readonly isUndefined = isUndefined;
 
   private restartSession(): void {
     const tempKeystrokes: IKeystroke[] = this.session.keystrokes.map((keystroke: IKeystroke) => {
@@ -99,11 +99,12 @@ export class TypingInterfaceComponent {
     setTimeout(() => this.inputRef.nativeElement.focus(), 50);
   }
 
-  private setupText(wikiExtract: string): void {
+  setupText(wikiExtract: string): void {
     this.clearSession();
     wikiExtract.split('').forEach((char: string) => {
       this.session.keystrokes.push({ source: char } as IKeystroke);
     });
-    setTimeout(() => this.textInputRef.nativeElement.focus());
+    this.isLoading = false;
+    setTimeout(() => this.textInputRef.nativeElement.focus(), 20);
   }
 }

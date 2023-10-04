@@ -1,6 +1,8 @@
 <div class="typing-container">
-  <input #inputRef (keydown.enter)="updateText()" [(ngModel)]="this.session.keyword"
+  <input #inputRef (keydown.enter)="updateText()" [(ngModel)]="session.keyword"
+         type=text
          placeholder="Search for wikipedia extract...">
+  <app-loading *ngIf="isLoading"></app-loading>
   <div #textInputRef (keydown)="keyPressed($event)"
        [class.hide]="!session.keystrokes.length"
        class="text-input"
