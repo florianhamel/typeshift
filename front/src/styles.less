@@ -1,13 +1,21 @@
+@import '~src/variables';
+
 /* You can add global styles to this file, and also import other style files */
 body {
-  background-color: rgba(#D4DBF6, 0.75);
-  //background-color: rgba(darkslategrey, 0.75);
-  font-family: 'Inter', 'SF Mono', 'Avenir', sans-serif;
+  //background-color: @tsw-light-beige; // LIGHT
+  background-color: @tsw-dark-beige; // DARK
+  font-family: @tsw-font;
+  font-size: 1.1rem;
+  color: @tsw-black;
 }
 
 a {
   text-decoration: none;
-  color: black;
+  color: @tsw-black;
+}
+
+.hide {
+  display: none;
 }
 
 .bold {

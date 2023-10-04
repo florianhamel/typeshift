@@ -54,13 +54,7 @@ export class TypingInterfaceComponent {
     return (index === this.session.index);
   }
 
-  private setupText(wikiExtract: string): void {
-    this.clearSession();
-    wikiExtract.split('').forEach((char: string) => {
-      this.session.keystrokes.push({ source: char } as IKeystroke);
-    });
-    this.textInputRef.nativeElement.focus();
-  }
+  protected readonly isUndefined = isUndefined;
 
   private restartSession(): void {
     const tempKeystrokes: IKeystroke[] = this.session.keystrokes.map((keystroke: IKeystroke) => {
@@ -103,5 +97,13 @@ export class TypingInterfaceComponent {
     clearInterval(this.session.intervalId);
     this.session.endTime = new Date();
     setTimeout(() => this.inputRef.nativeElement.focus(), 50);
+  }
+
+  private setupText(wikiExtract: string): void {
+    this.clearSession();
+    wikiExtract.split('').forEach((char: string) => {
+      this.session.keystrokes.push({ source: char } as IKeystroke);
+    });
+    setTimeout(() => this.textInputRef.nativeElement.focus());
   }
 }

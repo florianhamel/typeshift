@@ -1,11 +1,14 @@
 <div class="typing-container">
   <input #inputRef (keydown.enter)="updateText()" [(ngModel)]="this.session.keyword"
          placeholder="Search for wikipedia extract...">
-  <div #textInputRef class="text-input" (keydown)="keyPressed($event)" tabindex="0">
+  <div #textInputRef (keydown)="keyPressed($event)"
+       [class.hide]="!session.keystrokes.length"
+       class="text-input"
+       tabindex="0">
     <ng-container *ngFor="let keystroke of session.keystrokes; index as i">
-      <span class="character" [ngClass]="{ 'correct': isInputCorrect(keystroke),
+      <span [class]="{ 'correct': isInputCorrect(keystroke),
         'incorrect': isInputIncorrect(keystroke),
-        'current': isCurrent(i) }">{{ keystroke.source }}</span>
+        'current': isCurrent(i) }" class="character">{{ keystroke.source }}</span>
     </ng-container>
   </div>
   <app-typing-data [accuracy]="session.accuracy"
