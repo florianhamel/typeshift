@@ -5,7 +5,7 @@
  - A key sequence
 
  *****/
-import { TypingSession } from '../../../models/TypingSession';
+import { IKeystroke, TypingSession } from '../../../models/TypingSession';
 import { IKeyEvent } from './us-international.service';
 
 export interface IKeyboardLayout {
@@ -14,14 +14,22 @@ export interface IKeyboardLayout {
   sequenceStarterKeys: Map<string, IKeyEvent>;
 
   isRepeat(event: KeyboardEvent): boolean;
+
   isRestartKey(event: KeyboardEvent): boolean;
 
   isInputKey(event: KeyboardEvent): boolean;
+
   processInputKey(event: KeyboardEvent, session: TypingSession): void;
 
   isSequenceKey(event: KeyboardEvent, session: TypingSession): boolean;
+
   processSequenceKey(event: KeyboardEvent, session: TypingSession): void;
 
   isBackspaceKey(event: KeyboardEvent): boolean;
+
   processBackspaceKey(event: KeyboardEvent, session: TypingSession): void;
+
+  isAsciiChar(key: string): boolean;
+
+  isInputCorrect(keystroke: IKeystroke): boolean;
 }

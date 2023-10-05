@@ -4,6 +4,8 @@ import { IKeystroke, TypingSession } from '../../../models/TypingSession';
 import { LatinAlphabetService } from '../alphabets/latin-alphabet.service';
 import { isDefined, isUndefined } from '../../../utils/checks';
 
+export const RETURN_UNICODE: string = '\u23CE';
+
 export interface IKeyEvent {
   key: string;
   code?: string;
@@ -48,6 +50,17 @@ export class UsInternationalService implements IKeyboardLayout {
 
   isRestartKey(event: KeyboardEvent): boolean {
     return (event.key === this.restartKey);
+  }
+
+  isAsciiChar(key: string): boolean {
+    return (/^[\x00-\x7F]*$/.test(key) || [...this.sequenceKeys.values()].includes(key));
+  }
+
+  isInputCorrect(keystroke: IKeystroke): boolean {
+    if (keystroke.key === 'Enter' && keystroke.source === '\n') {
+      return true;
+    }
+    return (keystroke.key === keystroke.source);
   }
 
   isSequenceKey(event: KeyboardEvent, session: TypingSession): boolean {
@@ -95,7 +108,7 @@ export class UsInternationalService implements IKeyboardLayout {
     } else if (this.isBackquoteKey(event)) {
       session.keystroke.keySequence = event.shiftKey ? '~' : '`';
     } else {
-      session.keystroke.keySequence = 'ˆ';
+      session.keystroke.keySequence = '^';
     }
   }
 
