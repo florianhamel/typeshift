@@ -4,6 +4,7 @@ export interface IKeystroke {
   source: string;
   key: string | undefined;
   keySequence: string | undefined;
+  disabled: boolean;
 }
 
 export class TypingSession {

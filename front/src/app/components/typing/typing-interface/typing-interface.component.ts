@@ -4,6 +4,7 @@ import { IKeyboardLayout } from '../../../services/typing/keyboard-layouts/IKeyb
 import { KEYBOARD_LAYOUT_TOKEN } from '../typing.module';
 import { isDefined, isUndefined } from '../../../utils/checks';
 import { WikiService } from '../../../services/typing/wiki.service';
+import { RETURN_UNICODE } from '../../../services/typing/keyboard-layouts/us-international.service';
 
 @Component({
   selector: 'app-typing-interface',
@@ -23,9 +24,9 @@ export class TypingInterfaceComponent {
 
   updateText(): void { // TODO extract data source from typing interface
     this.isLoading = true;
-    this.wikiService.getWikiExtract(this.session.keyword).subscribe({
+    this.wikiService.getWikiExtract(this.session.keyword, 'en').subscribe({
       next: (wikiExtract: string): void => this.setupText(wikiExtract),
-      error: (): void => this.setupText('Oupsi! That\'s a 404 (Not Found)! Let\'s type this while you\'re here.')
+      error: (): void => this.setupText('Error\nType " ú Ê ê\'αβΦ\'ê and の, は, でした while you\'re here.')
     });
   }
 
@@ -44,12 +45,21 @@ export class TypingInterfaceComponent {
     }
   }
 
+  formattedKeystroke(keystroke: IKeystroke): string {
+    if (!this.keyboard.isAsciiChar(keystroke.source)) {
+      keystroke.disabled = true;
+    } else if (keystroke.source === '\n') {
+      return RETURN_UNICODE + '\n';
+    }
+    return keystroke.source;
+  }
+
   isInputCorrect(keystroke: IKeystroke): boolean {
-    return (keystroke.source === keystroke.key);
+    return this.keyboard.isInputCorrect(keystroke);
   }
 
   isInputIncorrect(keystroke: IKeystroke): boolean {
-    return (isDefined(keystroke.key) && keystroke.source !== keystroke.key);
+    return (isDefined(keystroke.key) && !this.keyboard.isInputCorrect(keystroke));
   }
 
   isCurrent(index: number): boolean {
@@ -83,13 +93,28 @@ export class TypingInterfaceComponent {
   private updateSession(event: KeyboardEvent): void {
     if (this.keyboard.isSequenceKey(event, this.session)) {
       this.keyboard.processSequenceKey(event, this.session);
+      this.skipDisabledForward();
     } else if (this.keyboard.isBackspaceKey(event)) {
       this.keyboard.processBackspaceKey(event, this.session);
+      this.skipDisabledBackward();
     } else if (this.keyboard.isInputKey(event)) {
       this.keyboard.processInputKey(event, this.session);
+      this.skipDisabledForward();
     }
     if (this.session.index === this.session.keystrokes.length) {
       this.session.closed = true;
+    }
+  }
+
+  private skipDisabledForward(): void {
+    while (this.session.keystroke?.disabled && isUndefined(this.session.keystroke.keySequence)) {
+      this.session.index++;
+    }
+  }
+
+  private skipDisabledBackward(): void {
+    while (this.session.keystroke?.disabled) {
+      this.session.index--;
     }
   }
 
@@ -99,7 +124,7 @@ export class TypingInterfaceComponent {
     setTimeout(() => this.inputRef.nativeElement.focus(), 50);
   }
 
-  setupText(wikiExtract: string): void {
+  private setupText(wikiExtract: string): void {
     this.clearSession();
     wikiExtract.split('').forEach((char: string) => {
       this.session.keystrokes.push({ source: char } as IKeystroke);

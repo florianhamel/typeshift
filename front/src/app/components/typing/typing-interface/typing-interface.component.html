@@ -1,19 +1,20 @@
 <div class="typing-container">
-  <input #inputRef (keydown.enter)="updateText()" [(ngModel)]="session.keyword"
-         type=text
-         placeholder="Search for wikipedia extract...">
-  <app-loading *ngIf="isLoading"></app-loading>
-  <div #textInputRef (keydown)="keyPressed($event)"
-       [class.hide]="!session.keystrokes.length"
-       class="text-input"
-       tabindex="0">
-    <ng-container *ngFor="let keystroke of session.keystrokes; index as i">
-      <span [class]="{ 'correct': isInputCorrect(keystroke),
-        'incorrect': isInputIncorrect(keystroke),
-        'current': isCurrent(i) }" class="character">{{ keystroke.source }}</span>
-    </ng-container>
-  </div>
-  <app-typing-data [accuracy]="session.accuracy"
-                   [seconds]="session.seconds"
-                   [wpm]="session.wpm"></app-typing-data>
+    <input #inputRef (keydown.enter)="updateText()" [(ngModel)]="session.keyword"
+           placeholder="Search for wikipedia extract..."
+           type=text>
+    <app-loading *ngIf="isLoading"></app-loading>
+    <div #textInputRef (keydown)="keyPressed($event)"
+         [class.hide]="!session.keystrokes.length"
+         class="text-input"
+         tabindex="0">
+        <ng-container *ngFor="let keystroke of session.keystrokes; index as i">
+            <span [class]="{ 'correct': isInputCorrect(keystroke),
+            'incorrect': isInputIncorrect(keystroke),
+            'current': isCurrent(i),
+            'disabled': keystroke.disabled }" class="character">{{ formattedKeystroke(keystroke) }}</span>
+        </ng-container>
+    </div>
+    <app-typing-data [accuracy]="session.accuracy"
+                     [seconds]="session.seconds"
+                     [wpm]="session.wpm"></app-typing-data>
 </div>
