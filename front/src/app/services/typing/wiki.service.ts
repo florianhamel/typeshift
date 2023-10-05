@@ -10,8 +10,8 @@ export class WikiService {
   constructor(private readonly http: HttpClient) {
   }
 
-  getWikiExtract(keyword: string): Observable<string> {
-    const url: string = 'https://en.wikipedia.org/api/rest_v1/page/summary/' + keyword;
+  getWikiExtract(keyword: string, lang: string): Observable<string> {
+    const url: string = 'https://' + lang + '.wikipedia.org/api/rest_v1/page/summary/' + keyword;
     const params = {
       format: 'json'
     };
@@ -20,6 +20,7 @@ export class WikiService {
   }
 
   private formatExtract(text: string): string {
-    return text.replace(/\s/g, ' ').trim();
+    return text.replace(/[^\S\n]/g, ' ').trim();
   }
 }
+
