@@ -10,6 +10,10 @@ export class WikiService {
   constructor(private readonly http: HttpClient) {
   }
 
+  testWikiApi(): Observable<any> {
+    return this.http.get('https://en.wikipedia.org/api/rest_v1/page/related/chinese_room');
+  }
+
   getWikiExtract(keyword: string, lang: string): Observable<string> {
     const url: string = 'https://' + lang + '.wikipedia.org/api/rest_v1/page/summary/' + keyword;
     const params = {

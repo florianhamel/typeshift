@@ -1,0 +1,13 @@
+<div class="login">
+    <h2>Login</h2>
+    <form (ngSubmit)="login()" [formGroup]="loginForm" class="login-form">
+        <label for="username">Username</label>
+        <input formControlName="username" id="username" placeholder="Username" type="text"/>
+
+        <label for="username">Password</label>
+        <input formControlName="password" placeholder="Password" type="password"/>
+
+        <button type="submit">Login</button>
+    </form>
+</div>
+<!--<button (click)="testMethod()">Test Method</button>-->
