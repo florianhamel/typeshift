@@ -1,0 +1,21 @@
+version: "3.9"
+
+services:
+  typeshift:
+    image: postgres:latest
+    container_name: typeshift-ctr
+    networks:
+      - back-net
+    volumes:
+      - typeshift-vol:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    env_file:
+      - postgres.env
+    restart: on-failure
+
+networks:
+  back-net:
+
+volumes:
+  typeshift-vol:

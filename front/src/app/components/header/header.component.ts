@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Signal } from '@angular/core';
+import { UserInfo } from '../../services/user/user-info.service';
 
 @Component({
   selector: 'app-header',
@@ -6,4 +7,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./header.component.less']
 })
 export class HeaderComponent {
+  isAuthenticated: Signal<boolean> = this.userInfo.get('isAuthenticated');
+  username: Signal<string> = this.userInfo.get('username');
+
+  constructor(private readonly userInfo: UserInfo) {
+  }
 }

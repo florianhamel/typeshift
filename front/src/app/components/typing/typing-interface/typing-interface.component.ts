@@ -22,6 +22,12 @@ export class TypingInterfaceComponent {
               @Inject(KEYBOARD_LAYOUT_TOKEN) private readonly keyboard: IKeyboardLayout) {
   }
 
+  testWikiApi(): void {
+    this.wikiService.testWikiApi().subscribe({
+      next: value => console.log(value)
+    });
+  }
+
   updateText(): void { // TODO extract data source from typing interface
     this.isLoading = true;
     this.wikiService.getWikiExtract(this.session.keyword, 'en').subscribe({
