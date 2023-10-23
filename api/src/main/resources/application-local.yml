@@ -1,0 +1,24 @@
+### Spring ###
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/typeshift
+    username: postgres
+    password: Pwd;123
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+  liquibase:
+    change-log: classpath:/db/changelog/db.changelog.xml
+
+### Application Beans ###
+application:
+  security:
+    jwt:
+      secret-key: 2Nf/HB5aGQDvY99Al5LMQ0/mj5gj0VZT1Au9KQkLfis=
+      expiration: 3600000

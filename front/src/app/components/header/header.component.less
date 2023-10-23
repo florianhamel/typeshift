@@ -3,16 +3,23 @@
 :host {
   nav {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 42px;
-    margin-bottom: 50px;
-    width: 40vw;
-    height: 5rem;
-    padding-left: 20px;
+    height: 110px;
+    margin-bottom: 30px;
+  }
 
-    a {
-      transition: 120ms;
-    }
+  a {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .menu-space {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    margin-left: 40px;
 
     a:hover {
       text-decoration: underline;
@@ -20,18 +27,17 @@
   }
 
   .logo {
+    //img {
+    //  width: 150px;
+    //  height: auto;
+    //}
+  }
+
+  .user-space {
     display: flex;
     align-items: center;
-    gap: 5px;
-    position: absolute;
-    color: @tsw-black;
-    top: 25px;
-    left: 50%;
-    transform: translateX(-50%);
-
-    img {
-      width: 150px;
-      height: auto;
-    }
+    gap: 40px;
+    font-size: 1.1rem;
+    margin-right: 40px;
   }
 }
