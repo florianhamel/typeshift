@@ -1,0 +1,17 @@
+{
+  "test": {
+    "trad": "Hello World!",
+    "var": "test {{ yoyo }}"
+  },
+  "validator": {
+    "error": {
+      "required": "{{ key }} can't be empty!",
+      "email": "Oupsi, email is not formatted properly!",
+      "minlength": "{{ key }} should be at least {{ minlength }} characters",
+      "maxlength": "{{ key }} should be less than {{ maxlength }} characters",
+      "emailAlreadyExists": "This email already exists, you probably already have an account!",
+      "usernameAlreadyExists": "This username already exists, let's find another one!",
+      "badCredentials": "We couldn't authenticate you, can you verify your credentials?"
+    }
+  }
+}

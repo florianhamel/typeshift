@@ -3,27 +3,40 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
-import { CommonModule } from '@angular/common';
-import { LoginComponent } from './components/login/login.component';
-import { ReactiveFormsModule } from '@angular/forms';
-import { TypingModule } from './components/typing/typing.module';
 import { NgxWebstorageModule } from 'ngx-webstorage';
+import { TypingModule } from './components/typing/typing.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { HttpClient } from '@angular/common/http';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    LoginComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     TypingModule,
-    CommonModule,
-    ReactiveFormsModule,
-    NgxWebstorageModule.forRoot()
+    BrowserAnimationsModule,
+    NgxWebstorageModule.forRoot(),
+    TranslateModule.forRoot({
+      defaultLanguage: 'en',
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
   ],
   providers: [],
+  exports: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {

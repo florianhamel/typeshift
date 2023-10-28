@@ -1,0 +1,134 @@
+<div [@enterAnimation]="true" class="form-container">
+  <div class="close">
+    <button (click)="closeModal()" class="close-button" mat-icon-button>
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div class="flex items-center gap-10">
+    <svg fill="none" height="30" viewBox="0 0 24 24" width="30" xmlns="http://www.w3.org/2000/svg">
+      <path d="M2.001 11.999h14m0 0-3.5-3m3.5 3-3.5 3" stroke="#1B1F1C" stroke-linecap="round" stroke-linejoin="round"
+            stroke-width="1.5"/>
+      <path
+        d="M9.002 7c.012-2.175.109-3.353.877-4.121C10.758 2 12.172 2 15 2h1c2.829 0 4.243 0 5.122.879C22 3.757 22 5.172 22 8v8c0 2.828 0 4.243-.878 5.121-.769.769-1.947.865-4.122.877M9.002 17c.012 2.175.109 3.353.877 4.121.641.642 1.568.815 3.121.862"
+        stroke="#1C274C" stroke-linecap="round" stroke-width="1.5"/>
+    </svg>
+    <h2>{{ isLogIn ? 'Log in' : 'Sign up' }}</h2>
+  </div>
+
+  <form (ngSubmit)="logIn()"
+        *ngIf="isLogIn; else signUpFormTemplate"
+        [@enterAnimation]="true"
+        [formGroup]="logInForm"
+        class="form">
+    <div class="form-field">
+      <svg fill="none" height="30" viewBox="0 0 24 24" width="30" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="9" r="3" stroke="#1B1F1C" stroke-width="1.5"/>
+        <path d="M17.97 20c-.16-2.892-1.045-5-5.97-5s-5.81 2.108-5.97 5" stroke="#1B1F1C" stroke-linecap="round"
+              stroke-width="1.5"/>
+        <path
+          d="M7 3.338A9.954 9.954 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"
+          stroke="#1B1F1C" stroke-linecap="round" stroke-width="1.5"/>
+      </svg>
+      <input class="tsw-input" formControlName="username" id="username" placeholder="Username or Email" type="text"/>
+    </div>
+
+    <div class="form-field">
+      <svg fill="none" height="30" viewBox="0 0 24 24" width="30" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M12 10v4m-1.732-3 3.464 2m0-2-3.465 2m-3.535-3v4M5 11l3.464 2m0-2L5 13m12.268-3v4m-1.732-3L19 13m0-2-3.465 2M22 12c0 3.771 0 5.657-1.172 6.828C19.657 20 17.771 20 14 20h-4c-3.771 0-5.657 0-6.828-1.172C2 17.657 2 15.771 2 12c0-3.771 0-5.657 1.172-6.828C4.343 4 6.229 4 10 4h4c3.771 0 5.657 0 6.828 1.172.654.653.943 1.528 1.07 2.828"
+          stroke="#1B1F1C" stroke-linecap="round" stroke-width="1.5"/>
+      </svg>
+      <input class="tsw-input" formControlName="password" id="password" placeholder="Password" type="password"/>
+    </div>
+
+    <div class="flex column items-center gap-15">
+      <span [@validationError]="hasBadCredentials(logInForm) && isLogIn ? 'visible' : 'invisible'"
+            class="error-info block">
+        {{ 'validator.error.badCredentials' | translate }}
+      </span>
+      <a class="link pointer font-small">Forgot password?</a>
+    </div>
+
+    <div class="buttons-container">
+      <button [disabled]="!logInForm.valid" class="tsw-button" type="submit">Log in</button>
+    </div>
+  </form>
+
+  <ng-template #signUpFormTemplate>
+    <form (ngSubmit)="signUp()" [@enterAnimation]="true" [formGroup]="signUpForm" class="form">
+
+      <!--      Email-->
+      <div class="form-field-container">
+        <div class="form-field">
+          <svg height="30" viewBox="0 0 24 24" width="30" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M13.025 17H3.707l5.963-5.963L12 12.83l2.33-1.794 1.603 1.603a5.463 5.463 0 0 1 1.004-.41l-1.808-1.808L21 5.9v6.72a5.514 5.514 0 0 1 1 .64V5.5A1.504 1.504 0 0 0 20.5 4h-17A1.504 1.504 0 0 0 2 5.5v11A1.5 1.5 0 0 0 3.5 18h9.525c-.015-.165-.025-.331-.025-.5s.01-.335.025-.5zM3 16.293V5.901l5.871 4.52zM20.5 5c.009 0 .016.005.025.005L12 11.57 3.475 5.005c.009 0 .016-.005.025-.005zm-2 8a4.505 4.505 0 0 0-4.5 4.5 4.403 4.403 0 0 0 .05.5 4.49 4.49 0 0 0 4.45 4h.5v-1h-.5a3.495 3.495 0 0 1-3.45-3 3.455 3.455 0 0 1-.05-.5 3.498 3.498 0 0 1 5.947-2.5H20v.513A2.476 2.476 0 0 0 18.5 15a2.5 2.5 0 1 0 1.733 4.295A1.497 1.497 0 0 0 23 18.5v-1a4.555 4.555 0 0 0-4.5-4.5zm0 6a1.498 1.498 0 0 1-1.408-1 1.483 1.483 0 0 1-.092-.5 1.5 1.5 0 0 1 3 0 1.483 1.483 0 0 1-.092.5 1.498 1.498 0 0 1-1.408 1zm3.5-.5a.5.5 0 0 1-1 0v-3.447a3.639 3.639 0 0 1 1 2.447z"
+              fill="#1B1F1C"/>
+            <path d="M0 0h24v24H0z" fill="none"/>
+          </svg>
+          <input class="tsw-input" formControlName="email" placeholder="* Email" type="text"/>
+          <mat-icon [@validationError]="isValid('email') ? 'visible' : 'invisible'" class="green-valid">check_circle
+          </mat-icon>
+        </div>
+        <span [@validationError]="hasError('email') ? 'visible' : 'invisible'" class="error-info block">
+          {{ getError('email') | translate: getConfig('email') }}
+        </span>
+      </div>
+
+      <!--      Username-->
+      <div class="form-field-container">
+        <div class="form-field">
+          <svg fill="none" height="30" viewBox="0 0 24 24" width="30" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="9" r="3" stroke="#1B1F1C" stroke-width="1.5"/>
+            <path d="M17.97 20c-.16-2.892-1.045-5-5.97-5s-5.81 2.108-5.97 5" stroke="#1B1F1C" stroke-linecap="round"
+                  stroke-width="1.5"/>
+            <path
+              d="M7 3.338A9.954 9.954 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"
+              stroke="#1B1F1C" stroke-linecap="round" stroke-width="1.5"/>
+          </svg>
+          <input class="tsw-input" formControlName="username" placeholder="* Username" type="text"/>
+          <mat-icon [@validationError]="isValid('username') ? 'visible' : 'invisible'" class="green-valid">
+            check_circle
+          </mat-icon>
+        </div>
+        <span [@validationError]="hasError('username') ? 'visible' : 'invisible'" class="error-info">
+          {{ getError('username') | translate: getConfig('username') }}
+        </span>
+      </div>
+
+      <!--      Password-->
+      <div class="form-field-container">
+        <div class="form-field">
+          <svg fill="none" height="30" viewBox="0 0 24 24" width="30" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M12 10v4m-1.732-3 3.464 2m0-2-3.465 2m-3.535-3v4M5 11l3.464 2m0-2L5 13m12.268-3v4m-1.732-3L19 13m0-2-3.465 2M22 12c0 3.771 0 5.657-1.172 6.828C19.657 20 17.771 20 14 20h-4c-3.771 0-5.657 0-6.828-1.172C2 17.657 2 15.771 2 12c0-3.771 0-5.657 1.172-6.828C4.343 4 6.229 4 10 4h4c3.771 0 5.657 0 6.828 1.172.654.653.943 1.528 1.07 2.828"
+              stroke="#1B1F1C" stroke-linecap="round" stroke-width="1.5"/>
+          </svg>
+          <input class="tsw-input" formControlName="password" placeholder="* Password" type="password"/>
+          <mat-icon [@validationError]="isValid('password') ? 'visible' : 'invisible'" class="green-valid">
+            check_circle
+          </mat-icon>
+        </div>
+        <span [@validationError]="hasError('password') ? 'visible' : 'invisible'" class="error-info">
+          {{ getError('password') | translate: getConfig('password') }}
+        </span>
+      </div>
+
+      <div class="buttons-container">
+        <button [disabled]="!signUpForm.valid" class="tsw-button" type="button">Sign up</button>
+      </div>
+    </form>
+  </ng-template>
+
+  <div *ngIf="isLogIn; else signUpButtonTemplate" class="flex items-center gap-10">
+    <button (click)="changeModal()" class="tsw-button">Sign up</button>
+    <span class="font-small">with Google</span>
+  </div>
+  <ng-template #signUpButtonTemplate>
+    <div class="flex items-center gap-10">
+      <button (click)="changeModal()" class="tsw-button">Log in</button>
+      <span class="font-small">to your account</span>
+    </div>
+  </ng-template>
+</div>
