@@ -1,9 +1,14 @@
 @import '~src/variables';
 
 /* You can add global styles to this file, and also import other style files */
+//html, body {
+//  height: 100%;
+//}
+
 body {
-  background-color: @tsw-light-beige; // LIGHT
-  //background-color: @tsw-dark-beige; // DARK
+  margin: 0;
+  //background-color: @tsw-beige-light; // LIGHT
+  background-color: @tsw-beige-dark; // DARK
   font-family: @tsw-font;
   font-size: @tsw-font-size;
   color: @tsw-black;
@@ -14,10 +19,147 @@ a {
   color: @tsw-black;
 }
 
-.hide {
-  display: none;
+/* Concept patterns */
+.gap-5 {
+  gap: 5px;
+}
+
+.gap-10 {
+  gap: 10px;
+}
+
+.gap-15 {
+  gap: 15px;
+}
+
+.gap-20 {
+  gap: 20px;
+}
+
+.link {
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.font {
+  font-family: @tsw-font;
+}
+
+.font-small {
+  font-family: @tsw-font;
+  font-size: @tsw-font-size-small;
+}
+
+.close {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+
+
+/* Utils */
+
+/** Flex **/
+.flex {
+  display: flex;
+}
+
+.column {
+  flex-direction: column;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.items-center {
+  align-items: center;
+}
+
+/** Text **/
+.underline {
+  text-decoration: underline;
 }
 
 .bold {
   font-weight: bold;
+}
+
+.green-valid {
+  color: @tsw-green-valid;
+}
+
+/** Other **/
+
+.none {
+  display: none;
+}
+
+.block {
+  display: block;
+}
+
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+/* TSW */
+
+/** Button **/
+.tsw-button {
+  font-family: @tsw-font;
+  font-size: @tsw-font-size-small;
+  color: @tsw-black;
+  background-color: rgba(white, 0);
+  border: none;
+  border-radius: 3px;
+  box-shadow: 0 0 5px rgba(@tsw-black, 0.4);
+  cursor: pointer;
+  min-width: 85px;
+  min-height: 30px;
+  max-width: fit-content;
+  max-height: fit-content;
+  transition: background-color 75ms ease-in-out, color 75ms ease-in-out,
+  box-shadow 75ms ease-in-out;
+}
+
+.tsw-button:hover {
+  color: @tsw-beige;
+  background-color: rgba(@tsw-black, 0.9);
+  box-shadow: 0 0 15px rgba(@tsw-black, 0.2);
+}
+
+.tsw-button:active {
+}
+
+/** Input **/
+.tsw-input {
+  font-family: @tsw-font;
+  font-size: @tsw-font-size-small;
+  width: 270px;
+  height: 22px;
+  border: none;
+  border-radius: 5px;
+  padding: 5px;
+  outline: 1px solid @tsw-beige-light;
+  transition: outline-color 120ms;
+}
+
+.tsw-input:focus {
+  outline: 1px solid @tsw-green-valid;
+}
+
+/* Angular CDK */
+.dialog-backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
 }

@@ -1,64 +1,54 @@
 @import '~src/variables.less';
 
 :host {
-  input {
-    font-family: @tsw-font;
-    font-size: @tsw-input-font-size;
-    width: 350px;
-    height: 25px;
-    border: none;
-    border-radius: 5px;
-    padding: 5px;
-    margin: 15px 0 15px 0;
-    outline: 1px solid @tsw-beige;
-    transition: outline-color 120ms;
-  }
-
-  input:focus {
-    outline: 1px solid @tsw-black;
-  }
-
   .typing-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     white-space: pre-wrap;
-    background-color: @tsw-green; // LIGHT
-    //background-color: @tsw-dark-green; // DARK
-    box-shadow: 0 0 12px @tsw-dark-green;
+    //background-color: @tsw-beige; // LIGHT
+    background-color: @tsw-green-dark; // DARK
+    box-shadow: 0 0 20px rgba(@tsw-green-dark, 0.4);
     border-radius: 5px;
     padding: 15px;
     margin-left: auto;
     margin-right: auto;
-    width: 50vw;
+    width: 850px;
   }
 
   .text-input {
     font-family: @tsw-font-mono;
-    font-size: @tsw-font-size;
-    line-height: 30px;
-    border-radius: 5px;
-    padding: 5px;
-    margin: 5px;
-    transition: color 120ms, background-color 120ms, box-shadow 120ms;
-  }
-
-  .text-input:focus {
+    font-size: 1.4rem;
+    line-height: 35px;
     outline: none;
+    margin: 20px 10px 0 10px;
+    border-radius: 3px;
+    padding: 0 15px 0 15px;
+    scroll-behavior: smooth;
+    transition: color 120ms, background-color 120ms, box-shadow 120ms, height 1s ease-in-out;
   }
 
   .text-input:not(:focus) {
     color: rgba(@tsw-black, 0.2);
-    background-color: rgba(@tsw-black, 0.05);
-    box-shadow: 0 0 3px rgba(@tsw-black, 0.3) inset;
+    background-color: rgba(@tsw-black, 0.25);
+    box-shadow: 0 0 10px rgba(@tsw-black, 0.2);
   }
 
   .text-input:not(:focus):hover {
     cursor: pointer;
   }
 
+  .typing-in-progress {
+    //height: 105px;
+    //overflow: hidden;
+  }
+
+  .character {
+    word-break: break-word;
+  }
+
   .correct {
-    color: #83DF8C;
+    color: @tsw-green-valid;
   }
 
   .incorrect {

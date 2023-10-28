@@ -1,12 +1,14 @@
 package com.typeshift.api.models.Authentication;
 
+import lombok.Builder;
 import lombok.Data;
 
 @Data
-public class SignInForm {
-  private String email;
+@Builder
+public class LogInDTO {
   private String username;
-  private String password;
+  private String email;
   private String firstname;
   private String lastname;
+  private Long expiration;
 }
