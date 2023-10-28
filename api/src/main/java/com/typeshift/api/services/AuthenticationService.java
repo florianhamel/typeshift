@@ -1,9 +1,11 @@
 package com.typeshift.api.services;
 
+import com.typeshift.api.exceptions.UserAlreadyExistsException;
 import com.typeshift.api.mappers.AuthenticationMapper;
-import com.typeshift.api.models.Authentication.AuthenticationDTO;
-import com.typeshift.api.models.Authentication.LoginForm;
-import com.typeshift.api.models.Authentication.SignInForm;
+import com.typeshift.api.models.Authentication.LogInDTO;
+import com.typeshift.api.models.Authentication.LogInForm;
+import com.typeshift.api.models.Authentication.SignUpDTO;
+import com.typeshift.api.models.Authentication.SignUpForm;
 import com.typeshift.api.models.User.User;
 import com.typeshift.api.repositories.UserRepository;
 import jakarta.servlet.http.HttpServletResponse;
@@ -26,7 +28,7 @@ public class AuthenticationService {
   private final JwtService jwtService;
   private final AuthenticationMapper authenticationMapper;
 
-  public AuthenticationDTO authenticate(LoginForm loginForm, HttpServletResponse response) {
+  public LogInDTO authenticate(LogInForm loginForm, HttpServletResponse response) {
     var authentication = authenticationManager.authenticate(
       new UsernamePasswordAuthenticationToken(
         loginForm.getUsername(),
@@ -42,20 +44,26 @@ public class AuthenticationService {
     return authenticationDTO;
   }
 
-  public User register(SignInForm signinForm) {
-    if (userRepository.existsByUsernameOrEmail(signinForm.getUsername(), signinForm.getEmail())) {
-      return null;
+  public SignUpDTO register(SignUpForm signUpForm) {
+    if (userRepository.existsByEmail(signUpForm.getEmail())) {
+      throw new UserAlreadyExistsException("EMAIL_ALREADY_EXISTS");
+    } else if (userRepository.existsByUsername(signUpForm.getUsername())) {
+      throw new UserAlreadyExistsException("USERNAME_ALREADY_EXISTS");
     }
     var user = User.builder()
-      .email(signinForm.getEmail())
-      .username(signinForm.getUsername())
-      .password(passwordEncoder.encode(signinForm.getPassword()))
-      .firstname(signinForm.getFirstname())
-      .lastname(signinForm.getLastname())
+      .email(signUpForm.getEmail())
+      .username(signUpForm.getUsername())
+      .password(passwordEncoder.encode(signUpForm.getPassword()))
+      .firstname("John")
+      .lastname("Doe")
       .created(LocalDateTime.now())
       .updated(LocalDateTime.now())
       .active(Boolean.TRUE)
       .build();
-    return userRepository.save(user);
+    var savedUser = userRepository.save(user);
+    return SignUpDTO.builder()
+      .email(savedUser.getEmail())
+      .username(savedUser.getUsername())
+      .build();
   }
 }

@@ -1,0 +1,51 @@
+@import '~src/variables';
+
+:host {
+  .form-container {
+    //background-color: @tsw-beige; // LIGHT
+    background-color: @tsw-green-dark; // DARK
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: center;
+    position: relative;
+    gap: 30px;
+    border-radius: 10px;
+    padding: 30px 50px;
+    min-width: 500px;
+    transition: min-height 1s ease-in-out;
+  }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+  }
+
+  .form-field-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+  }
+
+  .form-field {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .buttons-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+  }
+
+  .error-info {
+    color: lightcoral;
+    font-size: 0.8rem;
+    height: 17.5px;
+  }
+}
