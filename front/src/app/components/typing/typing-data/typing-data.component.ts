@@ -1,5 +1,11 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
+export interface ITypingData {
+  wpm: number;
+  accuracy: number;
+  seconds: number;
+}
+
 @Component({
   selector: 'app-typing-data',
   templateUrl: './typing-data.component.html',
@@ -7,19 +13,17 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TypingDataComponent {
-  @Input() wpm: number = NaN;
-  @Input() accuracy: number = NaN;
-  @Input() seconds: number = NaN;
+  @Input() typingData!: ITypingData;
 
   formatWpm(): string {
-    return (isNaN(this.wpm) || this.wpm < 5) ? 'N/A' : this.wpm.toFixed() + ' wpm';
+    return (isNaN(this.typingData.wpm) || this.typingData.wpm < 5) ? 'N/A' : this.typingData.wpm.toFixed() + ' wpm';
   }
 
   formatAccuracy(): string {
-    return isNaN(this.accuracy) ? 'N/A' : this.accuracy.toFixed(1) + '%';
+    return isNaN(this.typingData.accuracy) ? 'N/A' : this.typingData.accuracy.toFixed(1) + '%';
   }
 
   formatTime(): string {
-    return isNaN(this.seconds) ? 'N/A' : this.seconds.toFixed(0) + 's';
+    return isNaN(this.typingData.seconds) ? 'N/A' : this.typingData.seconds.toFixed(0) + 's';
   }
 }

@@ -11,7 +11,6 @@ export class TypingSession {
   intervalId!: number | undefined;
   startTime!: Date;
   endTime!: Date;
-  keyword!: string;
   index: number = 0;
   keystrokes: IKeystroke[] = [];
   keystrokeTotal: number = 0;
