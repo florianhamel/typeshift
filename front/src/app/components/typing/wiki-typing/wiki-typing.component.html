@@ -1,0 +1,32 @@
+<div class="typing-container">
+  <div class="flex items-center gap-10">
+    <svg fill="none" height="30" viewBox="0 0 192 192" width="30" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="116" cy="76" r="54" stroke="#1B1F1C" stroke-width="12"/>
+      <path
+        d="M86.5 121.5 41 167c-4.418 4.418-11.582 4.418-16 0v0c-4.418-4.418-4.418-11.582 0-16l44.5-44.5M92 62l12 32 12-32 12 32 12-32"
+        stroke="#1B1F1C" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/>
+    </svg>
+    <h2>Wiki Typing</h2>
+  </div>
+  <input #inputRef
+         (keydown.enter)="updateWikiExtract()"
+         [(ngModel)]="wikiData.keyword" class="tsw-input"
+         placeholder="Search for wikipedia extract..."
+         type=text>
+
+  <app-loading *ngIf="isLoading"></app-loading>
+  <app-typing-session (sessionClosed)="terminateSession($event)"
+                      (typingDataUpdate)="updateTypingData($event)"
+                      *ngIf="!isLoading && isDefined(wikiData.extract)"
+                      [text]="wikiData.extract!"></app-typing-session>
+  <span *ngIf="!isLoading && isUndefined(wikiData.extract)"
+        class="placeholder">Get Wiki extract and start typing!</span>
+
+  <app-typing-data [typingData]="typingData"></app-typing-data>
+
+  <div *ngIf="!isAuthenticated() && sessionClosed" class="flex items-center gap-10">
+    <button (click)="openAuthenticationDialog(true)" class="tsw-button">Log in</button>
+    <button (click)="openAuthenticationDialog(false)" class="tsw-button">Sign up</button>
+    <span class="font-small">in 1 minute and save your progress!</span>
+  </div>
+</div>

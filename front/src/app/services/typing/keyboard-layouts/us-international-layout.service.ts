@@ -1,41 +1,26 @@
 import { Injectable } from '@angular/core';
-import { IKeyboardLayout } from './IKeyboardLayout';
+import { IKeyboardLayout, IKeyEvent } from './IKeyboardLayout';
 import { IKeystroke, TypingSession } from '../../../models/TypingSession';
 import { LatinAlphabetService } from '../alphabets/latin-alphabet.service';
 import { isDefined, isUndefined } from '../../../utils/checks';
-
-export const RETURN_UNICODE: string = '\u23CE';
-
-export interface IKeyEvent {
-  key: string;
-  code?: string;
-  shiftKey?: boolean;
-  ctrlKey?: boolean;
-  altKey?: boolean;
-}
-
-const RESTART_KEY: string = 'Escape';
-
-const FUNCTIONAL_KEYS: Set<string> = new Set<string>([
-  'ArrowUp',
-  'ArrowRight',
-  'ArrowDown',
-  'ArrowLeft',
-  'Home',
-  'End',
-  'Shift',
-  'Control',
-  'Meta',
-  'Alt',
-  'Tab'
-]);
+import { isSpace } from '../../../utils/char';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UsInternationalService implements IKeyboardLayout {
-  restartKey: string = RESTART_KEY;
-  functionalKeys: Set<string> = FUNCTIONAL_KEYS;
+export class UsInternationalLayout implements IKeyboardLayout {
+  functionalKeys: Set<string> = new Set<string>(['ArrowUp',
+    'ArrowRight',
+    'ArrowDown',
+    'ArrowLeft',
+    'Home',
+    'End',
+    'Shift',
+    'Control',
+    'Meta',
+    'Alt',
+    'Tab'
+  ]);
   sequenceStarterKeys: Map<string, IKeyEvent> = new Map();
   sequenceKeys: Map<string, string> = new Map();
 
@@ -49,11 +34,11 @@ export class UsInternationalService implements IKeyboardLayout {
   }
 
   isRestartKey(event: KeyboardEvent): boolean {
-    return (event.key === this.restartKey);
+    return (event.key === 'Escape');
   }
 
-  isAsciiChar(key: string): boolean {
-    return (/^[\x00-\x7F]*$/.test(key) || [...this.sequenceKeys.values()].includes(key));
+  isEnabled(key: string): boolean {
+    return (/^[ -~\n]*$/.test(key) || [...this.sequenceKeys.values()].includes(key));
   }
 
   isInputCorrect(keystroke: IKeystroke): boolean {
@@ -82,10 +67,10 @@ export class UsInternationalService implements IKeyboardLayout {
 
   processBackspaceKey(event: KeyboardEvent, session: TypingSession): void {
     if (this.isWordBackspaceKey(event) && session.index > 0) {
-      while (isDefined(session.lastKeystroke?.source) && this.isWhiteSpace(session.lastKeystroke!.source as string)) {
+      while (isDefined(session.lastKeystroke?.source) && isSpace(session.lastKeystroke!.source as string)) {
         this.decrementIndex(session);
       }
-      while (isDefined(session.lastKeystroke?.source) && !this.isWhiteSpace(session.lastKeystroke!.source as string)) {
+      while (isDefined(session.lastKeystroke?.source) && !isSpace(session.lastKeystroke!.source as string)) {
         this.decrementIndex(session);
       }
     } else if (session.index > 0) {
@@ -133,12 +118,27 @@ export class UsInternationalService implements IKeyboardLayout {
     session.keystrokeErrors += this.isKeystrokeError(session.keystrokes[session.index]) ? 1 : 0;
     session.keystrokeTotal++;
     session.index++;
+    this.skipDisabledForward(session);
+  }
+
+  private skipDisabledForward(session: TypingSession): void {
+    while (session.keystroke?.disabled && isUndefined(session.keystroke.keySequence)) {
+      session.index++;
+    }
   }
 
   private decrementIndex(session: TypingSession): void {
     session.index--;
     session.keystroke.key = undefined;
     session.keystroke.keySequence = undefined;
+    this.skipDisabledBackward(session);
+  }
+
+  private skipDisabledBackward(session: TypingSession): void {
+    while (session.keystroke.disabled) {
+      session.index--;
+      session.index--;
+    }
   }
 
   private isStartingSequenceKey(session: TypingSession): boolean {
@@ -167,9 +167,5 @@ export class UsInternationalService implements IKeyboardLayout {
 
   private isBackquoteKey(event: KeyboardEvent): boolean {
     return (event.code === 'Backquote');
-  }
-
-  private isWhiteSpace(key: string) {
-    return /\s/.test(key);
   }
 }

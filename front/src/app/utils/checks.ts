@@ -13,3 +13,7 @@ export function nonNull(elem: any): boolean {
 export function isNull(elem: any): boolean {
   return (elem === null);
 }
+
+export function isEmpty(str: string): boolean {
+  return (str === '');
+}

@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TypingInterfaceComponent } from './typing-interface.component';
+import { WikiTypingComponent } from './wiki-typing.component';
 
 describe('TypingTextComponent', () => {
-  let component: TypingInterfaceComponent;
-  let fixture: ComponentFixture<TypingInterfaceComponent>;
+  let component: WikiTypingComponent;
+  let fixture: ComponentFixture<WikiTypingComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [TypingInterfaceComponent]
+      declarations: [WikiTypingComponent]
     });
-    fixture = TestBed.createComponent(TypingInterfaceComponent);
+    fixture = TestBed.createComponent(WikiTypingComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

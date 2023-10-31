@@ -1,0 +1,26 @@
+@import '~src/variables.less';
+
+:host {
+  .typing-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    white-space: pre-wrap;
+    //background-color: @tsw-beige; // LIGHT
+    background-color: @tsw-green-dark; // DARK
+    box-shadow: 0 0 20px rgba(@tsw-green-dark, 0.4);
+    border-radius: 5px;
+    padding: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 850px;
+  }
+
+  .placeholder {
+    color: rgba(@tsw-black, 0.3);
+    font-family: @tsw-font-mono;
+    font-size: 1.5rem;
+    line-height: 35px;
+    margin: 20px 10px 0 10px;
+  }
+}
