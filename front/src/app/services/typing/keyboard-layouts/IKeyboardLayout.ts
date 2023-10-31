@@ -6,13 +6,18 @@
 
  *****/
 import { IKeystroke, TypingSession } from '../../../models/TypingSession';
-import { IKeyEvent } from './us-international.service';
+
+export const RETURN_UNICODE: string = '\u23CE';
+
+export interface IKeyEvent {
+  key: string;
+  code?: string;
+  shiftKey?: boolean;
+  ctrlKey?: boolean;
+  altKey?: boolean;
+}
 
 export interface IKeyboardLayout {
-  restartKey: string;
-  functionalKeys: Set<string>;
-  sequenceStarterKeys: Map<string, IKeyEvent>;
-
   isRepeat(event: KeyboardEvent): boolean;
 
   isRestartKey(event: KeyboardEvent): boolean;
@@ -29,7 +34,7 @@ export interface IKeyboardLayout {
 
   processBackspaceKey(event: KeyboardEvent, session: TypingSession): void;
 
-  isAsciiChar(key: string): boolean;
+  isEnabled(key: string): boolean;
 
   isInputCorrect(keystroke: IKeystroke): boolean;
 }

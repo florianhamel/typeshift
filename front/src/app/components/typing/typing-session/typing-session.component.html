@@ -1,0 +1,13 @@
+<div #textInputRef
+     (keydown)="keyPressed($event)"
+     [class.none]="!session.keystrokes.length"
+     [class.typing-3-lines]="!session.closed"
+     class="text-input"
+     tabindex="0">
+  <span #keystrokeListRef
+        *ngFor="let keystroke of session.keystrokes; index as i"
+        [class]="{ 'correct': isInputCorrect(keystroke),
+          'incorrect': isInputIncorrect(keystroke),
+          'current': isCurrent(i),
+          'disabled': keystroke.disabled }" class="character">{{ formattedKeystroke(keystroke) }}</span>
+</div>
