@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { TypeshiftCommonModule } from '../common/typeshift-common.module';
 import { DialogModule } from '@angular/cdk/dialog';
 import { TypingSessionComponent } from './typing-session/typing-session.component';
+import { AiTypingComponent } from './ai-typing/ai-typing.component';
 
 export const KEYBOARD_LAYOUT_TOKEN: InjectionToken<IKeyboardLayout> =
   new InjectionToken<IKeyboardLayout>('keyboardLayoutToken');
@@ -17,7 +18,8 @@ export const KEYBOARD_LAYOUT_TOKEN: InjectionToken<IKeyboardLayout> =
   declarations: [
     WikiTypingComponent,
     TypingDataComponent,
-    TypingSessionComponent
+    TypingSessionComponent,
+    AiTypingComponent
   ],
   exports: [],
   imports: [

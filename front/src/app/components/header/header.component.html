@@ -34,7 +34,7 @@
     </div>
 
     <div class="user-space">
-      <a routerLink="/settings">
+      <a #origin="cdkOverlayOrigin" (click)="areSettingsOpen = !areSettingsOpen" cdkOverlayOrigin class="pointer">
         <svg fill="none" height="40" viewBox="0 0 24 24" width="40" xmlns="http://www.w3.org/2000/svg">
           <path
             d="M9.652 4.566A2 2 0 0 1 11.604 3h.792a2 2 0 0 1 1.952 1.566l.203.913a6.992 6.992 0 0 1 1.819 1.052l.894-.281a2 2 0 0 1 2.332.907l.396.686a2 2 0 0 1-.38 2.473l-.69.634a7.063 7.063 0 0 1 0 2.1l.69.633a2 2 0 0 1 .38 2.474l-.396.686a2 2 0 0 1-2.332.907l-.894-.281a6.993 6.993 0 0 1-1.819 1.052l-.203.913A2 2 0 0 1 12.396 21h-.792a2 2 0 0 1-1.952-1.566l-.203-.913a6.991 6.991 0 0 1-1.819-1.052l-.894.281a2 2 0 0 1-2.332-.907l-.396-.686a2 2 0 0 1 .38-2.473l.69-.634a7.058 7.058 0 0 1 0-2.1l-.69-.633a2 2 0 0 1-.38-2.474l.396-.686a2 2 0 0 1 2.332-.907l.894.281A6.992 6.992 0 0 1 9.45 5.48l.202-.913Z"
@@ -43,6 +43,14 @@
                 stroke-width="2"/>
         </svg>
       </a>
+      <ng-template [cdkConnectedOverlayOpen]="areSettingsOpen"
+                   [cdkConnectedOverlayOrigin]="origin"
+                   cdkConnectedOverlay>
+        <ul class="settings-header">
+          <li>Yo</li>
+          <li>Hey</li>
+        </ul>
+      </ng-template>
       <a (click)="logOut()" *ngIf="isAuthenticated(); else login" class="pointer">
         <svg fill="none" height="55" viewBox="0 0 24 24" width="55" xmlns="http://www.w3.org/2000/svg">
           <circle cx="12" cy="9" r="3" stroke="#1B1F1C" stroke-width="1.5"/>

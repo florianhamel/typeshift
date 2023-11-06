@@ -10,6 +10,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DialogRef } from '@angular/cdk/dialog';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { HttpErrorResponse } from '@angular/common/http';
+import { TypingService } from '../../../services/typing/typing.service';
 
 @Component({
   selector: 'app-authentication',
@@ -55,14 +56,16 @@ export class AuthenticationComponent {
   });
 
   constructor(private readonly authService: AuthenticationService,
-              private readonly userService: UserInfo,
+              private readonly userInfo: UserInfo,
+              private readonly typingService: TypingService,
               private readonly dialogRef: DialogRef) {
   }
 
   logIn(): void {
     this.authService.logIn(this.logInForm).subscribe({
-      next: value => {
-        this.userService.store(value);
+      next: userInfo => {
+        this.userInfo.store(userInfo);
+        this.typingService.postStoredSessions();
         this.dialogRef.close();
       },
       error: (response: HttpErrorResponse) => this.authService.setBadCredentials(this.logInForm, response)

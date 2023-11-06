@@ -1,4 +1,4 @@
-import { isDefined } from '../utils/checks';
+import { isDefined } from '../../utils/checks';
 
 export interface IKeystroke {
   source: string;
@@ -41,7 +41,7 @@ export class TypingSession {
 
   get wpm(): number {
     const words: number = this.keystrokes.filter((keystroke: IKeystroke) =>
-      isDefined(keystroke.key) && keystroke.key === keystroke.source).length / 5;
+      isDefined(keystroke.key) && (keystroke.key === keystroke.source)).length / 5;
     const minutes: number = Math.round(this.seconds) / 60;
     return (minutes > 0 && words >= 1) ? Math.round(words / minutes) : NaN;
   }

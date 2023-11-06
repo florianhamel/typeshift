@@ -12,7 +12,7 @@ import {
   ViewChild,
   ViewChildren
 } from '@angular/core';
-import { IKeystroke, TypingSession } from '../../../models/TypingSession';
+import { IKeystroke, TypingSession } from '../../../models/classes/TypingSession';
 import { isNewLine } from '../../../utils/char';
 import { IKeyboardLayout, RETURN_UNICODE } from '../../../services/typing/keyboard-layouts/IKeyboardLayout';
 import { isDefined, isUndefined } from '../../../utils/checks';
@@ -37,8 +37,7 @@ export class TypingSessionComponent implements OnChanges {
   offsetTop!: number;
   session: TypingSession = new TypingSession();
 
-  constructor(@Inject(KEYBOARD_LAYOUT_TOKEN) private readonly keyboard: IKeyboardLayout) {
-
+  constructor(@Inject(KEYBOARD_LAYOUT_TOKEN) private readonly keyboardService: IKeyboardLayout) {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -48,11 +47,11 @@ export class TypingSessionComponent implements OnChanges {
   }
 
   keyPressed(event: KeyboardEvent): void {
-    if (this.session.closed || this.keyboard.isRepeat(event)) {
+    if (this.session.closed || this.keyboardService.isRepeat(event)) {
       return;
     }
     this.startTimer();
-    if (this.keyboard.isRestartKey(event)) {
+    if (this.keyboardService.isRestartKey(event)) {
       this.restartSession();
     } else {
       this.updateSession(event);
@@ -72,11 +71,11 @@ export class TypingSessionComponent implements OnChanges {
   }
 
   isInputCorrect(keystroke: IKeystroke): boolean {
-    return this.keyboard.isInputCorrect(keystroke);
+    return this.keyboardService.isInputCorrect(keystroke);
   }
 
   isInputIncorrect(keystroke: IKeystroke): boolean {
-    return (isDefined(keystroke.key) && !this.keyboard.isInputCorrect(keystroke));
+    return (isDefined(keystroke.key) && !this.keyboardService.isInputCorrect(keystroke));
   }
 
   isCurrent(index: number): boolean {
@@ -86,7 +85,7 @@ export class TypingSessionComponent implements OnChanges {
   private setupText(text: string): void {
     this.clearSession();
     [...text].forEach((char: string) =>
-      this.session.keystrokes.push({ source: char, disabled: !this.keyboard.isEnabled(char) } as IKeystroke)
+      this.session.keystrokes.push({ source: char, disabled: !this.keyboardService.isEnabled(char) } as IKeystroke)
     );
     setTimeout(() => {
       this.offsetTop = this.keystrokeListRef.first.nativeElement.offsetTop;
@@ -102,11 +101,7 @@ export class TypingSessionComponent implements OnChanges {
       return keystroke;
     });
     this.clearSession();
-    this.typingDataUpdate.emit({
-      wpm: this.session.wpm,
-      accuracy: this.session.accuracy,
-      seconds: this.session.seconds
-    });
+    this.emitTypingData();
     this.session.keystrokes = tempKeystrokes;
     this.textInputRef.nativeElement.scrollTo({ top: 0 });
   }
@@ -121,22 +116,18 @@ export class TypingSessionComponent implements OnChanges {
       this.session.startTime = new Date();
       this.session.intervalId = setInterval(() => {
         this.session.endTime = new Date();
-        this.typingDataUpdate.emit({
-          wpm: this.session.wpm,
-          accuracy: this.session.accuracy,
-          seconds: this.session.seconds
-        });
+        this.emitTypingData();
       }, 50);
     }
   }
 
   private updateSession(event: KeyboardEvent): void {
-    if (this.keyboard.isSequenceKey(event, this.session)) {
-      this.keyboard.processSequenceKey(event, this.session);
-    } else if (this.keyboard.isBackspaceKey(event)) {
-      this.keyboard.processBackspaceKey(event, this.session);
-    } else if (this.keyboard.isInputKey(event)) {
-      this.keyboard.processInputKey(event, this.session);
+    if (this.keyboardService.isSequenceKey(event, this.session)) {
+      this.keyboardService.processSequenceKey(event, this.session);
+    } else if (this.keyboardService.isBackspaceKey(event)) {
+      this.keyboardService.processBackspaceKey(event, this.session);
+    } else if (this.keyboardService.isInputKey(event)) {
+      this.keyboardService.processInputKey(event, this.session);
     }
     if (this.session.index === this.session.keystrokes.length) {
       this.session.closed = true;
@@ -151,6 +142,15 @@ export class TypingSessionComponent implements OnChanges {
   private terminateSession(): void {
     clearInterval(this.session.intervalId);
     this.session.endTime = new Date();
+    this.emitTypingData();
     this.sessionClosed.emit(this.session);
+  }
+
+  private emitTypingData(): void {
+    this.typingDataUpdate.emit({
+      wpm: this.session.wpm,
+      accuracy: this.session.accuracy,
+      seconds: this.session.seconds
+    });
   }
 }

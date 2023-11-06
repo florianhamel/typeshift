@@ -1,18 +1,9 @@
-import { computed, Injectable, signal, Signal, WritableSignal } from '@angular/core';
-import { IUserInfo } from '../../models/IUserInfo';
+import { Injectable, signal, Signal, WritableSignal } from '@angular/core';
+import { IUserInfo } from '../../models/interfaces/user-information/IUserInfo';
 import { LocalStorageService } from 'ngx-webstorage';
 import { isDefined, nonNull } from '../../utils/checks';
-
-type TUserInfoKey = 'username' | 'email' | 'firstname' | 'lastname' | 'expiration';
-
-interface IUserInfoSignals {
-  username: WritableSignal<string>;
-  email: WritableSignal<string>;
-  firstname: WritableSignal<string>;
-  lastname: WritableSignal<string>;
-  expiration: WritableSignal<number>;
-  isAuthenticated: Signal<boolean>;
-}
+import { IUserInfoSignals } from '../../models/interfaces/user-information/IUserInfoSignals';
+import { TUserInfoKey } from '../../utils/types';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +16,7 @@ export class UserInfo {
     firstname: signal(this.localStorage.retrieve('firstname')),
     lastname: signal(this.localStorage.retrieve('lastname')),
     expiration: signal(this.localStorage.retrieve('expiration')),
-    isAuthenticated: computed(() => nonNull(this.userInfoSignals.expiration()) && this.isTokenValid())
+    isAuthenticated: signal(this.isTokenValid())
   };
 
   constructor(private readonly localStorage: LocalStorageService) {
@@ -40,6 +31,7 @@ export class UserInfo {
     this.userInfoKeys.forEach(key => {
       this.localStorage.store(key, userInfo[key]);
     });
+    this.refreshStatus();
   }
 
   clear(key?: TUserInfoKey): void {
@@ -52,6 +44,10 @@ export class UserInfo {
     }
   }
 
+  refreshStatus() {
+    this.userInfoSignals.isAuthenticated.set(this.isTokenValid());
+  }
+
   private observe(): void {
     this.userInfoKeys.forEach(key => {
       this.localStorage.observe(key).subscribe({
@@ -61,6 +57,7 @@ export class UserInfo {
   }
 
   private isTokenValid(): boolean {
-    return (new Date() < new Date(this.localStorage.retrieve('expiration')));
+    const expiration: number = this.localStorage.retrieve('expiration');
+    return (nonNull(expiration) && (new Date() < new Date(expiration)));
   }
 }

@@ -5,4 +5,5 @@
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
     <include file="db/changelog/scripts/001-test_user_table.xml"/>
+    <include file="db/changelog/scripts/002-user_typing_session.xml"/>
 </databaseChangeLog>

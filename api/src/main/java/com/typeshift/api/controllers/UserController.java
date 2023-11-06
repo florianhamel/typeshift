@@ -1,6 +1,6 @@
 package com.typeshift.api.controllers;
 
-import com.typeshift.api.models.User.User;
+import com.typeshift.api.models.entities.User;
 import com.typeshift.api.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

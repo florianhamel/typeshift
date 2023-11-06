@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { IKeyboardLayout, IKeyEvent } from './IKeyboardLayout';
-import { IKeystroke, TypingSession } from '../../../models/TypingSession';
+import { IKeystroke, TypingSession } from '../../../models/classes/TypingSession';
 import { LatinAlphabetService } from '../alphabets/latin-alphabet.service';
 import { isDefined, isUndefined } from '../../../utils/checks';
 import { isSpace } from '../../../utils/char';
@@ -129,14 +129,13 @@ export class UsInternationalLayout implements IKeyboardLayout {
 
   private decrementIndex(session: TypingSession): void {
     session.index--;
+    this.skipDisabledBackward(session);
     session.keystroke.key = undefined;
     session.keystroke.keySequence = undefined;
-    this.skipDisabledBackward(session);
   }
 
   private skipDisabledBackward(session: TypingSession): void {
     while (session.keystroke.disabled) {
-      session.index--;
       session.index--;
     }
   }

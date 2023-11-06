@@ -11,6 +11,7 @@ import { AuthenticationComponent } from '../common/log-in/authentication.compone
 export class HeaderComponent {
   isAuthenticated: Signal<boolean> = this.userInfo.get('isAuthenticated');
   username: Signal<string> = this.userInfo.get('username');
+  areSettingsOpen: boolean = false;
 
   constructor(private readonly userInfo: UserInfo,
               private readonly dialog: Dialog) {
@@ -18,6 +19,7 @@ export class HeaderComponent {
 
   logOut(): void {
     this.userInfo.clear();
+    this.userInfo.refreshStatus();
   }
 
   openLogIn(): void {
