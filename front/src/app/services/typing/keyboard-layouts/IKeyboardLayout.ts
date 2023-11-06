@@ -5,7 +5,7 @@
  - A key sequence
 
  *****/
-import { IKeystroke, TypingSession } from '../../../models/TypingSession';
+import { IKeystroke, TypingSession } from '../../../models/classes/TypingSession';
 
 export const RETURN_UNICODE: string = '\u23CE';
 

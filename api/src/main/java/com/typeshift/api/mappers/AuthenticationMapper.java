@@ -1,7 +1,7 @@
 package com.typeshift.api.mappers;
 
-import com.typeshift.api.models.Authentication.LogInDTO;
-import com.typeshift.api.models.User.User;
+import com.typeshift.api.models.DTOs.authentication.out.LogInDTO;
+import com.typeshift.api.models.entities.User;
 import org.springframework.stereotype.Component;
 
 

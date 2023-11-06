@@ -1,0 +1,46 @@
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="002.0" author="fhamel">
+        <preConditions onError="HALT" onFail="HALT">
+            <not>
+                <tableExists tableName="user_typing_session"/>
+            </not>
+        </preConditions>
+        <createTable tableName="user_typing_session">
+            <column name="id" autoIncrement="true" type="int">
+                <constraints primaryKey="true" unique="true" nullable="false"/>
+            </column>
+            <column name="user_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="wpm" type="smallint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="accuracy" type="smallint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="typing_type" type="varchar(16)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="label" type="varchar(64)"/>
+            <column name="created" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="002.1" author="fhamel">
+        <preConditions onError="HALT" onFail="HALT">
+            <tableExists tableName="user_typing_session"/>
+        </preConditions>
+        <addForeignKeyConstraint baseTableName="user_typing_session"
+                                 baseColumnNames="user_id"
+                                 constraintName="FK_user_typing_session_user"
+                                 referencedTableName="_user"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+</databaseChangeLog>
