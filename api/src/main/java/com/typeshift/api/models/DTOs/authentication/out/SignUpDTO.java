@@ -1,4 +1,4 @@
-package com.typeshift.api.models.Authentication;
+package com.typeshift.api.models.DTOs.authentication.out;
 
 import lombok.Builder;
 import lombok.Data;

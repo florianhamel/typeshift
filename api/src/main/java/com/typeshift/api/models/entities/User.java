@@ -1,6 +1,7 @@
-package com.typeshift.api.models.User;
+package com.typeshift.api.models.entities;
 
 
+import com.typeshift.api.models.enums.Gender;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,12 +12,12 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.Collection;
-
 
 @Data
 @Builder
@@ -38,20 +39,25 @@ public class User implements UserDetails {
   @Column(nullable = false)
   private String password;
 
-  @Column(nullable = false)
+  @Column
   private String firstname;
 
-  @Column(nullable = false)
+  @Column
   private String lastname;
 
-  @Column(nullable = false)
-  private LocalDateTime created;
+  @Column
+  private Instant dateOfBirth;
 
-  @Column(nullable = false)
-  private LocalDateTime updated;
+  @Column
+  private Gender gender;
 
+  @CreationTimestamp
   @Column(nullable = false)
-  private Boolean active;
+  private Instant created;
+
+  @CreationTimestamp
+  @Column(nullable = false)
+  private Instant updated;
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
