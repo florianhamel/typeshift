@@ -3,28 +3,31 @@
 :host {
   .text-input {
     font-family: @tsw-font-mono;
-    font-size: 1.6rem;
-    line-height: 40px;
+    font-size: 1.5rem;
+    color: @tsw-white;
+    line-height: 35px;
     outline: none;
-    margin: 20px 10px 0 10px;
     border-radius: 3px;
-    padding: 0 15px 0 15px;
+    padding: 0 15px;
+    max-height: 210px;
+    overflow: scroll;
     scroll-behavior: smooth;
-    transition: color 120ms, background-color 120ms, box-shadow 120ms, height 1s ease-in-out;
+    text-shadow: 0.5px 0.5px 2px rgba(@tsw-black, 0.5);
+    transition: color 150ms, background-color 150ms, box-shadow 150ms, max-height 150ms ease-in-out;
   }
 
-  .text-input:not(:focus) {
-    color: rgba(@tsw-black, 0.2);
-    background-color: rgba(@tsw-black, 0.25);
-    box-shadow: 0 0 10px rgba(@tsw-black, 0.2);
-  }
-
-  .text-input:not(:focus):hover {
+  .text-input-not-focus {
+    color: grey;
+    background-color: rgba(@tsw-black, 0.2);
+    box-shadow: 1px 1px 3px rgba(@tsw-black, 0.5) inset;
     cursor: pointer;
   }
 
+  .text-input:not(:focus):hover {
+  }
+
   .typing-3-lines {
-    height: 120px;
+    max-height: 105px;
     overflow: hidden;
   }
 
@@ -33,7 +36,7 @@
   }
 
   .correct {
-    color: @tsw-green-valid;
+    color: @tsw-green;
   }
 
   .incorrect {
@@ -42,8 +45,7 @@
   }
 
   .current {
-    color: @tsw-black;
-    border-bottom: 1.5px solid @tsw-black;
+    border-bottom: 1.5px solid @tsw-white;
   }
 
   .disabled {

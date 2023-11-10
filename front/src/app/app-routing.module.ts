@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthenticationComponent } from './components/common/log-in/authentication.component';
+import { AuthenticationComponent } from './components/common/authentication/authentication.component';
 import { WikiTypingComponent } from './components/typing/wiki-typing/wiki-typing.component';
 import { AiTypingComponent } from './components/typing/ai-typing/ai-typing.component';
 import { HomeComponent } from './components/home/home.component';

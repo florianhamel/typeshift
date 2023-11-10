@@ -6,17 +6,26 @@
 //}
 
 body {
-  margin: 0;
-  //background-color: @tsw-beige-light; // LIGHT
-  background-color: @tsw-beige-dark; // DARK
   font-family: @tsw-font;
   font-size: @tsw-font-size;
+  background-color: @tsw-heather;
   color: @tsw-black;
+  margin: 0;
 }
 
 a {
   text-decoration: none;
   color: @tsw-black;
+}
+
+h1 {
+  font-weight: normal;
+  margin: 0;
+}
+
+h2 {
+  font-weight: normal;
+  margin: 0;
 }
 
 /* Concept patterns */
@@ -36,6 +45,10 @@ a {
   gap: 20px;
 }
 
+.gap-35 {
+  gap: 35px;
+}
+
 .link {
 }
 
@@ -45,6 +58,10 @@ a {
 
 .font {
   font-family: @tsw-font;
+}
+
+.font-mono {
+  font-family: @tsw-font-mono;
 }
 
 .font-small {
@@ -58,6 +75,10 @@ a {
   right: 5px;
 }
 
+.margin-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
 
 /* Utils */
 
@@ -92,7 +113,6 @@ a {
 }
 
 /** Other **/
-
 .none {
   display: none;
 }
@@ -120,26 +140,34 @@ a {
   font-family: @tsw-font;
   font-size: @tsw-font-size-small;
   color: @tsw-black;
-  background-color: rgba(white, 0);
+  background-color: @tsw-green;
+  outline: none;
   border: none;
-  border-radius: 3px;
-  box-shadow: 0 0 5px rgba(@tsw-black, 0.4);
+  border-radius: 50px;
+  padding: 8px 15px;
+  box-shadow: 0 0 5px rgba(@tsw-black, 0.5);
   cursor: pointer;
-  min-width: 85px;
-  min-height: 30px;
-  max-width: fit-content;
-  max-height: fit-content;
+  min-width: 70px;
+  //min-height: 22px;
+  //width: fit-content;
+  //height: fit-content;
   transition: background-color 75ms ease-in-out, color 75ms ease-in-out,
   box-shadow 75ms ease-in-out;
 }
 
 .tsw-button:hover {
-  color: @tsw-beige;
+  color: @tsw-white;
   background-color: rgba(@tsw-black, 0.9);
-  box-shadow: 0 0 15px rgba(@tsw-black, 0.2);
 }
 
-.tsw-button:active {
+.tsw-button:disabled {
+  color: @tsw-black;
+  background-color: rgba(grey, 0.4);
+  box-shadow: 0 0 5px rgba(@tsw-black, 0.4) inset;
+}
+
+.tsw-button:disabled:hover {
+  cursor: default;
 }
 
 /** Input **/
@@ -151,12 +179,10 @@ a {
   border: none;
   border-radius: 50px;
   padding: 8px 15px;
-  outline: 1px solid @tsw-beige-light;
-  transition: outline-color 120ms;
 }
 
 .tsw-input:focus {
-  outline: 1.5px solid @tsw-green-valid;
+  outline: 2px solid @tsw-green;
 }
 
 /* Angular CDK */

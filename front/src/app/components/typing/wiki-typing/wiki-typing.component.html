@@ -1,30 +1,65 @@
-<div class="typing-container">
+<h2 class="flex justify-center">Type any Wikipedia summary.</h2>
+<div class="flex justify-center items-center gap-35">
+  <app-switch (switched)="updateRandomSwitch()"
+              [blurAfter]="true"
+              class="flex justify-center"><span>Random</span></app-switch>
   <div class="flex items-center gap-10">
-    <svg fill="none" height="30" viewBox="0 0 192 192" width="30" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="116" cy="76" r="54" stroke="#1B1F1C" stroke-width="12"/>
-      <path
-        d="M86.5 121.5 41 167c-4.418 4.418-11.582 4.418-16 0v0c-4.418-4.418-4.418-11.582 0-16l44.5-44.5M92 62l12 32 12-32 12 32 12-32"
-        stroke="#1B1F1C" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/>
-    </svg>
-    <h2>Wiki Typing</h2>
+    <button (click)="updateWikiExtract('drift')"
+            [disabled]="!wikiExtracted()"
+            class="tsw-button">Drift
+    </button>
+    <div *ngIf="sessionClosed && wikiExtracted()" class="flex items-center gap-10">
+      <span>or press</span>
+      <svg height="30" style="enable-background:new 0 0 122.88 108.95" viewBox="0 0 122.88 108.95" width="30"
+           xml:space="preserve" xmlns="http://www.w3.org/2000/svg"><path d="M23.01 0h76.87c6.33 0 12.08 2.59 16.25 6.76s6.76 9.92 6.76 16.25v62.93c0 6.33-2.59 12.08-6.76 16.25s-9.92 6.76-16.25 6.76H23.01c-6.33 0-12.08-2.59-16.25-6.76S0 92.27 0 85.94V23.01c0-6.33 2.59-12.08 6.76-16.25C10.92 2.59 16.68 0 23.01 0zm2.16 33.8h22.65v6.19H33.67v4.61h13.12v5.91H33.67v5.7h14.58v6.55H25.17V33.8zm25.79 23.14 7.54-.73c.31.94.75 1.62 1.31 2.02.56.4 1.31.61 2.24.61 1.02 0 1.81-.23 2.37-.69.44-.34.66-.77.66-1.28 0-.58-.29-1.03-.86-1.35-.41-.22-1.5-.5-3.26-.83-2.64-.49-4.47-.94-5.5-1.36-1.03-.41-1.89-1.12-2.59-2.1-.7-.99-1.05-2.12-1.05-3.39 0-1.38.38-2.58 1.13-3.57.76-1 1.8-1.75 3.14-2.25 1.33-.49 3.12-.74 5.36-.74 2.36 0 4.11.19 5.23.57 1.13.38 2.07.98 2.82 1.78.75.81 1.38 1.89 1.87 3.27l-7.19.73c-.19-.67-.5-1.16-.93-1.48-.59-.42-1.31-.63-2.16-.63-.85 0-1.48.16-1.87.49-.39.32-.59.71-.59 1.17 0 .52.25.9.74 1.17.49.27 1.58.51 3.24.71 2.53.3 4.41.73 5.64 1.27 1.23.54 2.17 1.31 2.82 2.31.66 1 .98 2.1.98 3.3 0 1.21-.34 2.39-1.04 3.54-.69 1.15-1.78 2.06-3.26 2.74-1.49.68-3.51 1.02-6.08 1.02-3.62 0-6.2-.55-7.74-1.65-1.54-1.07-2.53-2.63-2.97-4.65zm39.52-2.38 7.23.85c-.4 1.6-1.05 2.98-1.96 4.15-.91 1.17-2.07 2.08-3.49 2.72-1.41.65-3.21.97-5.39.97-2.11 0-3.86-.21-5.27-.62-1.4-.42-2.6-1.09-3.62-2.02a9.99 9.99 0 0 1-2.37-3.27c-.57-1.25-.86-2.91-.86-4.98 0-2.16.35-3.96 1.05-5.39.51-1.06 1.21-2 2.1-2.84.89-.84 1.79-1.46 2.73-1.87 1.49-.65 3.39-.97 5.7-.97 3.25 0 5.71.61 7.42 1.83 1.7 1.23 2.89 3.01 3.58 5.37l-7.15 1.01c-.22-.9-.63-1.57-1.22-2.03-.59-.45-1.39-.68-2.39-.68-1.26 0-2.28.48-3.06 1.43-.78.96-1.17 2.4-1.17 4.34 0 1.73.39 3.03 1.16 3.93.77.9 1.75 1.34 2.95 1.34.99 0 1.84-.27 2.51-.8.67-.54 1.18-1.36 1.52-2.47zM4.95 77.41c.86 3.22 2.57 6.11 4.86 8.41 3.38 3.39 8.05 5.49 13.19 5.49h76.87c.21 0 .41 0 .62-.01l1.29-.09c4.33-.44 8.24-2.38 11.19-5.29l.09-.1c2.3-2.3 4-5.19 4.86-8.41v-54.4c0-4.96-2.03-9.47-5.31-12.75-3.27-3.27-7.79-5.31-12.75-5.31H23.01c-4.96 0-9.48 2.03-12.75 5.3-3.27 3.27-5.3 7.79-5.3 12.75v54.41h-.01z" style="fill-rule:evenodd;clip-rule:evenodd"/></svg>
+    </div>
   </div>
-  <input #inputRef
-         (keydown.enter)="updateWikiExtract()"
-         [(ngModel)]="wikiData.keyword" class="tsw-input"
-         placeholder="Search for wikipedia extract..."
-         type=text>
+</div>
+<div class="wiki-container">
+  <div class="input-container">
+    <input #inputRef
+           (keydown.enter)="updateWikiExtract('classic')"
+           *ngIf="!randomActivated; else randomExtractTemplate"
+           [(ngModel)]="wikiInput"
+           [@enterAnimation]="true"
+           class="tsw-input"
+           placeholder="Search for wikipedia summary..."
+           type=text>
+    <ng-template #randomExtractTemplate>
+      <div [@enterAnimation]="true" class="flex items-center gap-10">
+        <button (click)="updateWikiExtract('random')"
+                class="tsw-button">Go
+        </button>
+        <div *ngIf="sessionClosed"
+             class="flex items-center gap-10">
+          <span [@enterAnimation]="true">or press</span>
+          <svg [@enterAnimation]="true" height="45" style="enable-background:new 0 0 122.88 72.42" viewBox="0 0 122.88 72.42" width="45"
+               xml:space="preserve" xmlns="http://www.w3.org/2000/svg"><path d="M24.59 22.47h15.05v4.12h-9.41v3.07h8.72v3.93h-8.72v3.79h9.69v4.36H24.59V22.47zM15.29 0h92.29c4.21 0 8.03 1.72 10.8 4.49 2.77 2.77 4.49 6.6 4.49 10.8v41.83c0 4.2-1.72 8.02-4.5 10.8-2.77 2.77-6.6 4.5-10.8 4.5H15.29c-4.2 0-8.03-1.72-10.8-4.5A15.216 15.216 0 0 1 0 57.13V15.29c0-4.21 1.72-8.03 4.49-10.8C7.26 1.72 11.09 0 15.29 0zm-12 51.46c.57 2.14 1.71 4.06 3.24 5.59 2.25 2.25 5.35 3.65 8.77 3.65h92.3c.14 0 .27 0 .41-.01l.85-.06c2.91-.3 5.54-1.61 7.51-3.58 1.53-1.53 2.66-3.45 3.23-5.59V15.29c0-3.29-1.35-6.29-3.53-8.47-2.18-2.18-5.17-3.53-8.47-3.53H15.29c-3.3 0-6.3 1.35-8.47 3.53C4.64 9 3.29 12 3.29 15.29v36.17zm39.34-23.69h4.71v2.27c.7-.93 1.41-1.6 2.13-1.99.72-.4 1.59-.6 2.63-.6 1.4 0 2.49.44 3.28 1.32.79.88 1.18 2.24 1.18 4.08v8.88h-5.09v-7.68c0-.88-.15-1.5-.46-1.86-.31-.36-.73-.55-1.28-.55-.61 0-1.1.25-1.48.74-.38.49-.57 1.37-.57 2.64v6.71h-5.06V27.77h.01zm23.06-5.3v5.3h2.77v3.93h-2.77v4.94c0 .59.06.99.16 1.18.17.3.46.44.87.44.37 0 .89-.11 1.57-.34l.37 3.7c-1.25.29-2.42.44-3.5.44-1.26 0-2.19-.17-2.78-.51-.59-.34-1.03-.86-1.32-1.56-.28-.7-.43-1.82-.43-3.38V31.7h-1.86v-3.93h1.86v-2.56l5.06-2.74zm19.83 13.61H75.37c.09.86.31 1.5.66 1.92.49.61 1.13.91 1.92.91.5 0 .97-.13 1.42-.39.28-.17.57-.46.89-.87l4.98.48c-.76 1.4-1.68 2.41-2.76 3.01-1.08.61-2.62.91-4.64.91-1.75 0-3.12-.26-4.13-.78-1-.52-1.83-1.35-2.49-2.48-.66-1.14-.99-2.47-.99-4.01 0-2.18.66-3.95 1.98-5.3 1.32-1.35 3.15-2.03 5.47-2.03 1.89 0 3.38.31 4.47.91a6 6 0 0 1 2.5 2.63c.57 1.15.86 2.64.86 4.49v.6h.01zm-5.14-2.56c-.1-1.04-.36-1.78-.79-2.23-.43-.45-.99-.67-1.69-.67-.81 0-1.45.34-1.93 1.02-.31.42-.5 1.05-.59 1.89h5v-.01zm7.51-5.75h4.74v2.28c.46-.99.93-1.67 1.41-2.04.49-.37 1.08-.56 1.8-.56.75 0 1.57.25 2.45.74l-1.57 3.8c-.6-.26-1.07-.39-1.42-.39-.66 0-1.18.29-1.54.87-.52.82-.78 2.34-.78 4.58v4.69h-5.09V27.77z"/></svg>
+        </div>
+      </div>
+    </ng-template>
+  </div>
 
   <app-loading *ngIf="isLoading"></app-loading>
+
+  <span *ngIf="!isLoading && !wikiExtracted()"
+        class="placeholder">Get a Wiki summary and start typing!</span>
+
+  <span *ngIf="!isLoading && wikiExtracted()"
+        class="wiki-title">{{ wikiData.title }}</span>
+
   <app-typing-session (sessionClosed)="terminateSession($event)"
                       (typingDataUpdate)="updateTypingData($event)"
-                      *ngIf="!isLoading && isDefined(wikiData.extract)"
+                      *ngIf="!isLoading && wikiExtracted()"
+                      [@enterAnimation]="true"
                       [text]="wikiData.extract!"></app-typing-session>
-  <span *ngIf="!isLoading && isUndefined(wikiData.extract)"
-        class="placeholder">Get Wiki extract and start typing!</span>
 
-  <app-typing-data [typingData]="typingData"></app-typing-data>
+  <app-typing-data *ngIf="!isLoading && wikiExtracted()"
+                   [typingData]="typingData"></app-typing-data>
 
-  <div *ngIf="!isAuthenticated() && sessionClosed" class="flex items-center gap-10">
+  <div *ngIf="!isAuthenticated() && sessionClosed && wikiExtracted()"
+       [@enterAnimation]="true"
+       class="flex items-center gap-10">
     <button (click)="openAuthenticationDialog(true)" class="tsw-button">Log in</button>
     <button (click)="openAuthenticationDialog(false)" class="tsw-button">Sign up</button>
     <span class="font-small">in 1 minute and save your progress!</span>

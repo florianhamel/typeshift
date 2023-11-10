@@ -1,9 +1,8 @@
 import { Injectable, signal, Signal, WritableSignal } from '@angular/core';
-import { IUserInfo } from '../../models/interfaces/user-information/IUserInfo';
 import { LocalStorageService } from 'ngx-webstorage';
 import { isDefined, nonNull } from '../../utils/checks';
-import { IUserInfoSignals } from '../../models/interfaces/user-information/IUserInfoSignals';
-import { TUserInfoKey } from '../../utils/types';
+import { TUserInfoKey } from '../../models/types';
+import { IUserInfo, IUserInfoSignals } from '../../models/interfaces/user-info';
 
 @Injectable({
   providedIn: 'root'

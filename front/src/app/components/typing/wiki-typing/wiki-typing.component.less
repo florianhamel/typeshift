@@ -1,26 +1,44 @@
 @import '~src/variables.less';
 
 :host {
-  .typing-container {
+  h2 {
+    margin-bottom: 50px;
+  }
+
+  .wiki-container {
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 20px;
+    position: relative;
     white-space: pre-wrap;
-    //background-color: @tsw-beige; // LIGHT
-    background-color: @tsw-green-dark; // DARK
-    box-shadow: 0 0 20px rgba(@tsw-green-dark, 0.4);
-    border-radius: 5px;
-    padding: 15px;
-    margin-left: auto;
-    margin-right: auto;
-    width: 850px;
+    border-radius: 10px;
+    background-color: @tsw-heather-dark;
+    box-shadow: 1px 1px 2px rgba(@tsw-black, 0.5);
+    padding: 20px 15px 20px 15px;
+    width: 75vw;
+    max-width: 1000px;
+    margin: 20px auto 0 auto;
+  }
+
+  .input-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    height: 40px;
+  }
+
+  .wiki-title {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: @tsw-white;
+    line-height: 35px;
+    text-shadow: 1px 1px 2px rgba(@tsw-black, 0.5);
   }
 
   .placeholder {
-    color: rgba(@tsw-black, 0.3);
-    font-family: @tsw-font-mono;
-    font-size: 1.5rem;
+    font-size: 1.6rem;
+    color: rgba(@tsw-white, 0.3);
     line-height: 35px;
-    margin: 20px 10px 0 10px;
   }
 }

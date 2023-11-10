@@ -1,7 +1,7 @@
 import { Component, Signal } from '@angular/core';
 import { UserInfo } from '../../services/user/user-info.service';
-import { Dialog } from '@angular/cdk/dialog';
-import { AuthenticationComponent } from '../common/log-in/authentication.component';
+import { AuthenticationComponent } from '../common/authentication/authentication.component';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-header',
@@ -9,12 +9,13 @@ import { AuthenticationComponent } from '../common/log-in/authentication.compone
   styleUrls: ['./header.component.less']
 })
 export class HeaderComponent {
+  authenticationDialogRef: MatDialogRef<AuthenticationComponent> | undefined;
   isAuthenticated: Signal<boolean> = this.userInfo.get('isAuthenticated');
   username: Signal<string> = this.userInfo.get('username');
   areSettingsOpen: boolean = false;
 
   constructor(private readonly userInfo: UserInfo,
-              private readonly dialog: Dialog) {
+              private readonly dialog: MatDialog) {
   }
 
   logOut(): void {
@@ -23,9 +24,10 @@ export class HeaderComponent {
   }
 
   openLogIn(): void {
-    this.dialog.open(AuthenticationComponent, {
+    this.authenticationDialogRef = this.dialog.open(AuthenticationComponent, {
       hasBackdrop: true,
       backdropClass: 'dialog-backdrop'
     });
+    this.authenticationDialogRef.afterClosed().subscribe(() => this.authenticationDialogRef = undefined);
   }
 }

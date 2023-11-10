@@ -1,7 +1,10 @@
 <div #textInputRef
-     (keydown)="keyPressed($event)"
      [class.none]="!session.keystrokes.length"
      [class.typing-3-lines]="!session.closed"
+     (blur)="textInputFocused = false"
+     (focus)="textInputFocused = true"
+     (keydown)="keyPressed($event)"
+     [class.text-input-not-focus]="!session.closed && !textInputFocused"
      class="text-input"
      tabindex="0">
   <span #keystrokeListRef
