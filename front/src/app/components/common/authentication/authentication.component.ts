@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import {
   AuthenticationService,
   PASSWORD_MIN,
@@ -6,33 +6,37 @@ import {
   USERNAME_MIN
 } from '../../../services/authentication/authentication.service';
 import { UserInfo } from '../../../services/user/user-info.service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { DialogRef } from '@angular/cdk/dialog';
-import { animate, state, style, transition, trigger } from '@angular/animations';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { TypingService } from '../../../services/typing/typing.service';
+import { enterAnimation, visibilityAnimation } from '../../../utils/animations';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { TranslateModule } from '@ngx-translate/core';
+import { CommonModule } from '@angular/common';
+import { DialogRef } from '@angular/cdk/dialog';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
+  standalone: true,
   selector: 'app-authentication',
   templateUrl: './authentication.component.html',
   styleUrls: ['./authentication.component.less'],
-  animations: [
-    trigger('validationError', [
-      state('invisible', style({ opacity: 0 })),
-      state('visible', style({ opacity: 1 })),
-      transition('invisible <=> visible', [animate('150ms')])
-    ]),
-    trigger('enterAnimation', [
-      transition(':enter', [
-        style({ opacity: 0 }),
-        animate('150ms', style({ opacity: 1 }))
-      ])
-    ])
-  ]
+  imports: [
+    CommonModule,
+    MatDialogModule,
+    MatIconModule,
+    ReactiveFormsModule,
+    TranslateModule,
+    MatButtonModule
+  ],
+  animations: [visibilityAnimation, enterAnimation]
 })
 
 export class AuthenticationComponent {
   @Input() isLogIn: boolean = true;
+
+  @ViewChild('logInUsernameRef') logInUsernameRef!: ElementRef;
 
   logInForm: FormGroup = new FormGroup({
     username: new FormControl('', Validators.required),

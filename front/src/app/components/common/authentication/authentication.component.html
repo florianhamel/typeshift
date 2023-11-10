@@ -30,7 +30,8 @@
           d="M7 3.338A9.954 9.954 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"
           stroke="#1B1F1C" stroke-linecap="round" stroke-width="1.5"/>
       </svg>
-      <input class="tsw-input" formControlName="username" id="username" placeholder="Username or Email" type="text"/>
+      <input #logInUsernameRef
+             class="tsw-input" formControlName="username" id="username" placeholder="Username or Email" type="text"/>
     </div>
 
     <div class="form-field">
@@ -43,7 +44,7 @@
     </div>
 
     <div class="flex column items-center gap-15">
-      <span [@validationError]="hasBadCredentials(logInForm) && isLogIn ? 'visible' : 'invisible'"
+      <span [@visibilityAnimation]="hasBadCredentials(logInForm) && isLogIn ? 'visible' : 'invisible'"
             class="error-info block">
         {{ 'validator.error.badCredentials' | translate }}
       </span>
@@ -68,10 +69,10 @@
             <path d="M0 0h24v24H0z" fill="none"/>
           </svg>
           <input class="tsw-input" formControlName="email" placeholder="* Email" type="text"/>
-          <mat-icon [@validationError]="isValid('email') ? 'visible' : 'invisible'" class="green-valid">check_circle
+          <mat-icon [@visibilityAnimation]="isValid('email') ? 'visible' : 'invisible'" class="green-valid">check_circle
           </mat-icon>
         </div>
-        <span [@validationError]="hasError('email') ? 'visible' : 'invisible'" class="error-info block">
+        <span [@visibilityAnimation]="hasError('email') ? 'visible' : 'invisible'" class="error-info block">
           {{ getError('email') | translate: getConfig('email') }}
         </span>
       </div>
@@ -88,11 +89,11 @@
               stroke="#1B1F1C" stroke-linecap="round" stroke-width="1.5"/>
           </svg>
           <input class="tsw-input" formControlName="username" placeholder="* Username" type="text"/>
-          <mat-icon [@validationError]="isValid('username') ? 'visible' : 'invisible'" class="green-valid">
+          <mat-icon [@visibilityAnimation]="isValid('username') ? 'visible' : 'invisible'" class="green-valid">
             check_circle
           </mat-icon>
         </div>
-        <span [@validationError]="hasError('username') ? 'visible' : 'invisible'" class="error-info">
+        <span [@visibilityAnimation]="hasError('username') ? 'visible' : 'invisible'" class="error-info">
           {{ getError('username') | translate: getConfig('username') }}
         </span>
       </div>
@@ -106,11 +107,11 @@
               stroke="#1B1F1C" stroke-linecap="round" stroke-width="1.5"/>
           </svg>
           <input class="tsw-input" formControlName="password" placeholder="* Password" type="password"/>
-          <mat-icon [@validationError]="isValid('password') ? 'visible' : 'invisible'" class="green-valid">
+          <mat-icon [@visibilityAnimation]="isValid('password') ? 'visible' : 'invisible'" class="green-valid">
             check_circle
           </mat-icon>
         </div>
-        <span [@validationError]="hasError('password') ? 'visible' : 'invisible'" class="error-info">
+        <span [@visibilityAnimation]="hasError('password') ? 'visible' : 'invisible'" class="error-info">
           {{ getError('password') | translate: getConfig('password') }}
         </span>
       </div>

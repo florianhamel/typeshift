@@ -7,9 +7,12 @@ import { CommonModule } from '@angular/common';
 import { WikiTypingComponent } from './wiki-typing/wiki-typing.component';
 import { FormsModule } from '@angular/forms';
 import { TypeshiftCommonModule } from '../common/typeshift-common.module';
-import { DialogModule } from '@angular/cdk/dialog';
 import { TypingSessionComponent } from './typing-session/typing-session.component';
 import { AiTypingComponent } from './ai-typing/ai-typing.component';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatDialogModule } from '@angular/material/dialog';
 
 export const KEYBOARD_LAYOUT_TOKEN: InjectionToken<IKeyboardLayout> =
   new InjectionToken<IKeyboardLayout>('keyboardLayoutToken');
@@ -27,7 +30,10 @@ export const KEYBOARD_LAYOUT_TOKEN: InjectionToken<IKeyboardLayout> =
     CommonModule,
     FormsModule,
     TypeshiftCommonModule,
-    DialogModule
+    MatDialogModule,
+    MatButtonToggleModule,
+    MatRadioModule,
+    MatSlideToggleModule
   ],
   providers: [
     {

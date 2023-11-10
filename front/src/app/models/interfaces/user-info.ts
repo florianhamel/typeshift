@@ -8,3 +8,12 @@ export interface IUserInfoSignals {
   expiration: WritableSignal<number>;
   isAuthenticated: WritableSignal<boolean>;
 }
+
+
+export interface IUserInfo {
+  username: string;
+  email: string;
+  firstname: string;
+  lastname: string;
+  expiration: number;
+}

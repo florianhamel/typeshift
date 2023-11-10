@@ -36,6 +36,7 @@ export class TypingSessionComponent implements OnChanges {
 
   offsetTop!: number;
   session: TypingSession = new TypingSession();
+  textInputFocused: boolean = false;
 
   constructor(@Inject(KEYBOARD_LAYOUT_TOKEN) private readonly keyboardService: IKeyboardLayout) {
   }
@@ -135,8 +136,8 @@ export class TypingSessionComponent implements OnChanges {
   }
 
   private scroll(): void {
-    const current: ElementRef | undefined = this.keystrokeListRef.get(this.session.index)!;
-    this.textInputRef.nativeElement.scrollTo({ top: current?.nativeElement.offsetTop - this.offsetTop });
+    const current: ElementRef = this.keystrokeListRef.get(this.session.index)!;
+    this.textInputRef.nativeElement.scrollTo({ top: current.nativeElement.offsetTop - this.offsetTop });
   }
 
   private terminateSession(): void {
