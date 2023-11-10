@@ -9,14 +9,7 @@ import { IKeystroke, TypingSession } from '../../../models/classes/TypingSession
 
 export const RETURN_UNICODE: string = '\u23CE';
 
-export interface IKeyEvent {
-  key: string;
-  code?: string;
-  shiftKey?: boolean;
-  ctrlKey?: boolean;
-  altKey?: boolean;
-}
-
+// TODO this will become and abstract class
 export interface IKeyboardLayout {
   isRepeat(event: KeyboardEvent): boolean;
 

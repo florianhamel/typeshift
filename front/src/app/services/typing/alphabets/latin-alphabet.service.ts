@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IKeyEvent } from '../keyboard-layouts/IKeyboardLayout';
+import { IKeyEvent } from '../../../models/interfaces/typing';
 
 @Injectable({
   providedIn: 'root'

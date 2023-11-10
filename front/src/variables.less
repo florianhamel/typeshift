@@ -1,23 +1,38 @@
-// Border
-@tsw-border: 2px solid @tsw-black;
-
 // Font
-@tsw-font: Avenir, Futura Light, sans-serif;
-@tsw-font-mono: JetBrains Mono, SF Mono, 'Odudo Mono', Monospaced, sans-serif;
+@font-face {
+  font-family: "Avenir Next";
+  src: url("assets/fonts/Avenir-Next/AvenirNext-Regular-08.ttf") format("truetype");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Avenir Next";
+  src: url("assets/fonts/Avenir-Next/AvenirNext-Bold-01.ttf") format("truetype");
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("assets/fonts/JetBrains-Mono/JetBrainsMonoNL-Regular.ttf") format("truetype");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("assets/fonts/JetBrains-Mono/JetBrainsMonoNL-Bold.ttf") format("truetype");
+  font-weight: 700;
+}
+
+@tsw-font: "Avenir Next", Futura Light, sans-serif;
+@tsw-font-mono: JetBrains Mono, SF Mono, "Odudo Mono", Monospaced, sans-serif;
 @tsw-font-size: 1.3rem;
 @tsw-font-size-small: 1.1rem;
 
-
 // Color
-@tsw-green-yellow: #CFE450;
-@tsw-green-light: #D4F6DE;
-@tsw-green-dark: #505C53;
-//@tsw-green-valid: #9ED8AF; // LIGHT
-@tsw-green-valid: #83DF8C; // DARK
+@tsw-black: #18151D;
+@tsw-white: #F7F4FC;
+@tsw-heather: #BFADD8;
+@tsw-heather-dark: #B59FD2;
+@tsw-green: #CCE8A6;
 
-@tsw-beige: #F6DED4;
-@tsw-beige-light: #FDF7F4;
-@tsw-beige-dark: #CABBB4;
-
-//@tsw-black: #1B1F1C; // LIGHT
-@tsw-black: #D4F6DE; // DARK
+@tsw-green-valid: #83DF8C;

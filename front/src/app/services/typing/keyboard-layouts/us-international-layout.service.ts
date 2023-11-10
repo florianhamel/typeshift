@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { IKeyboardLayout, IKeyEvent } from './IKeyboardLayout';
+import { IKeyboardLayout } from './IKeyboardLayout';
 import { IKeystroke, TypingSession } from '../../../models/classes/TypingSession';
 import { LatinAlphabetService } from '../alphabets/latin-alphabet.service';
 import { isDefined, isUndefined } from '../../../utils/checks';
 import { isSpace } from '../../../utils/char';
+import { IKeyEvent } from '../../../models/interfaces/typing';
 
 @Injectable({
   providedIn: 'root'

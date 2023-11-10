@@ -5,7 +5,7 @@ import { environment } from '../../../environments/environment.development';
 import { SessionStorageService } from 'ngx-webstorage';
 import { isNull, nonNull } from '../../utils/checks';
 import { TypingType } from '../../models/enums/TypingType';
-import { ITypingSessionInfo } from '../../components/typing/wiki-typing/wiki-typing.component';
+import { ITypingSessionInfo } from '../../models/interfaces/typing';
 
 export interface ITypingSessionDTO {
   wpm: number;
@@ -40,7 +40,6 @@ export class TypingService {
     if (nonNull(storedSessionsDTOs)) {
       this.http.post(this.typingUrl + '/sessions', storedSessionsDTOs,
         { withCredentials: true }).subscribe({
-        error: err => console.log(err),
         complete: () => this.sessionStorage.clear('sessions')
       });
     }
