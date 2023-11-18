@@ -54,7 +54,7 @@ export class WikiService {
   }
 
 
-  private formatExtract(text: string): string {
+  formatExtract(text: string): string {
     return text.replace(/[^\S\n]/g, ' ').trim();
   }
 }
