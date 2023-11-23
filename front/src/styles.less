@@ -8,7 +8,7 @@
 body {
   font-family: @tsw-font;
   font-size: @tsw-font-size;
-  background-color: @tsw-heather;
+  background-color: @tsw-primary;
   color: @tsw-black;
   margin: 0;
 }
@@ -47,6 +47,10 @@ h2 {
 
 .gap-35 {
   gap: 35px;
+}
+
+.radius-50 {
+  border-radius: 50px;
 }
 
 .link {
@@ -139,25 +143,22 @@ h2 {
 .tsw-button {
   font-family: @tsw-font;
   font-size: @tsw-font-size-small;
-  color: @tsw-black;
-  background-color: @tsw-green;
+  color: @tsw-white;
+  background-color: @tsw-secondary;
   outline: none;
   border: none;
   border-radius: 50px;
   padding: 8px 15px;
-  box-shadow: 0 0 5px rgba(@tsw-black, 0.5);
+  box-shadow: 0 0 2px rgba(@tsw-black, 0.5), 0 1px 1px rgba(@tsw-black, 0.5);
   cursor: pointer;
   min-width: 70px;
-  //min-height: 22px;
-  //width: fit-content;
-  //height: fit-content;
   transition: background-color 75ms ease-in-out, color 75ms ease-in-out,
   box-shadow 75ms ease-in-out;
 }
 
 .tsw-button:hover {
-  color: @tsw-white;
-  background-color: rgba(@tsw-black, 0.9);
+  color: @tsw-black;
+  background-color: @tsw-white;
 }
 
 .tsw-button:disabled {
@@ -171,6 +172,7 @@ h2 {
 }
 
 /** Input **/
+// TODO allow svg icon inside all inputs
 .tsw-input {
   font-family: @tsw-font;
   font-size: @tsw-font-size-small;
@@ -182,7 +184,7 @@ h2 {
 }
 
 .tsw-input:focus {
-  outline: 2px solid @tsw-green;
+  outline: 2px solid @tsw-secondary;
 }
 
 /* Angular CDK */
