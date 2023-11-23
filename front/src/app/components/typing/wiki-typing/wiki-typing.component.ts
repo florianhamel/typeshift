@@ -10,6 +10,8 @@ import { TypingType } from '../../../models/enums/TypingType';
 import { ITypingSessionInfo, IWikiData } from '../../../models/interfaces/typing';
 import { enterAnimation, leaveAnimation } from '../../../utils/animations';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { take } from 'rxjs';
+import { TSessionStatus } from '../../../models/types';
 
 export interface IWikiObserver {
   next: (wikiData: IWikiData) => void;
@@ -28,15 +30,11 @@ export class WikiTypingComponent {
   authenticationDialogRef: MatDialogRef<AuthenticationComponent> | undefined;
   isLoading: boolean = false;
   isAuthenticated: Signal<boolean> = this.userInfo.get('isAuthenticated');
-  sessionClosed: boolean = true;
+  sessionStatus: TSessionStatus = 'notStarted';
   wikiInput!: string;
   randomActivated: boolean = false;
 
-  typingData: ITypingData = {
-    wpm: NaN,
-    accuracy: NaN,
-    seconds: NaN
-  };
+  typingData!: ITypingData;
 
   wikiData: IWikiData = {
     title: undefined,
@@ -47,18 +45,19 @@ export class WikiTypingComponent {
               private readonly typingService: TypingService,
               private readonly dialog: MatDialog,
               private readonly userInfo: UserInfo) {
+    this.initTypingData();
   }
 
   @HostListener('document:keydown.enter')
   random(): void {
-    if (this.sessionClosed && this.randomActivated && isUndefined(this.authenticationDialogRef)) {
+    if (!(this.sessionStatus === 'inProgress') && this.randomActivated && isUndefined(this.authenticationDialogRef)) {
       this.updateWikiExtract('random');
     }
   }
 
-  @HostListener('document:keydown.escape')
+  @HostListener('document:keydown.ArrowRight')
   drift(): void {
-    if (this.sessionClosed && isDefined(this.wikiData.title) && isUndefined(this.authenticationDialogRef)) {
+    if (!(this.sessionStatus === 'inProgress') && this.wikiExtracted() && isUndefined(this.authenticationDialogRef)) {
       this.updateWikiExtract('drift');
     }
   }
@@ -68,27 +67,31 @@ export class WikiTypingComponent {
       hasBackdrop: true,
       backdropClass: 'dialog-backdrop'
     });
-    console.log('hello');
     this.authenticationDialogRef.afterClosed().subscribe(() => this.authenticationDialogRef = undefined);
   }
 
   updateWikiExtract(wikiMode: string): void {
     this.isLoading = true;
+    this.sessionStatus = 'notStarted';
+    this.initTypingData();
     switch (wikiMode) {
       case 'classic':
-        this.wikiService.getWikiExtract(this.wikiInput, 'en').subscribe(this.getWikiObserver());
+        this.wikiService.getWikiExtract(this.wikiInput, 'en').pipe(take(1))
+          .subscribe(this.getWikiObserver());
         break;
       case 'random':
-        this.wikiService.getRandomWikiExtract('en').subscribe(this.getWikiObserver());
+        this.wikiService.getRandomWikiExtract('en').pipe(take(1))
+          .subscribe(this.getWikiObserver());
         break;
       case 'drift':
-        this.wikiService.getDriftedWikiExtract(this.wikiData.title!, 'en').subscribe(this.getWikiObserver());
+        this.wikiService.getDriftedWikiExtract(this.wikiData.title!, 'en').pipe(take(1))
+          .subscribe(this.getWikiObserver());
         break;
     }
   }
 
   terminateSession(session: TypingSession): void {
-    this.sessionClosed = true;
+    this.sessionStatus = 'closed';
     this.userInfo.refreshStatus();
     const sessionInfo: ITypingSessionInfo = {
       type: TypingType.WIKI,
@@ -110,6 +113,11 @@ export class WikiTypingComponent {
   }
 
   updateTypingData(typingData: ITypingData): void {
+    if (isNaN(typingData.seconds)) {
+      this.sessionStatus = 'notStarted';
+    } else if (this.sessionStatus !== 'closed') {
+      this.sessionStatus = 'inProgress';
+    }
     this.typingData = typingData;
   }
 
@@ -134,8 +142,15 @@ export class WikiTypingComponent {
 
   private setupWikiData(wikiData: IWikiData): void {
     this.isLoading = false;
-    this.sessionClosed = false;
     this.wikiData.title = this.wikiInput = wikiData.title!;
     this.wikiData.extract = wikiData.extract;
+  }
+
+  private initTypingData(): void {
+    this.typingData = {
+      wpm: NaN,
+      accuracy: NaN,
+      seconds: NaN
+    };
   }
 }

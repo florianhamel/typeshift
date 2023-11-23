@@ -11,13 +11,6 @@ export class WikiService {
   constructor(private readonly http: HttpClient) {
   }
 
-  test(title: string): void {
-    this.http.get('https://en.wikipedia.org/api/rest_v1/page/related/' + title).subscribe({
-      next: value => console.log(value)
-    });
-  }
-
-
   getDriftedWikiExtract(title: string, lang: string): Observable<IWikiData> {
     const url: string = 'https://' + lang + '.wikipedia.org/api/rest_v1/page/related/' + title;
     const params = {
