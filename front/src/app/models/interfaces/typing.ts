@@ -17,3 +17,9 @@ export interface IKeyEvent {
   ctrlKey?: boolean;
   altKey?: boolean;
 }
+
+export interface ITypingData {
+  wpm: number;
+  accuracy: number;
+  seconds: number;
+}

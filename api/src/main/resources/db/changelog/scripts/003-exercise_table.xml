@@ -1,0 +1,25 @@
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="003" author="fhamel">
+        <preConditions onError="HALT" onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="exercise"/>
+            </not>
+        </preConditions>
+        <createTable tableName="exercise">
+            <column name="id" autoIncrement="true" type="int">
+                <constraints primaryKey="true" unique="true" nullable="false"/>
+            </column>
+            <column name="characters" type="varchar(128)">
+                <constraints unique="true" nullable="false"/>
+            </column>
+            <column name="level" type="varchar(32)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

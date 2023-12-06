@@ -1,0 +1,8 @@
+<div class="exercises-container">
+  <div (click)="startExercise(exercise)"
+       *ngFor="let exercise of exercises; trackBy: trackExercise"
+       class="exercise">
+    <span class="level">{{ exercise.level }}</span>
+    <span class="characters">{{ exercise.characters }}</span>
+  </div>
+</div>

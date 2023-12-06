@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TypingSessionComponent } from './typing-session.component';
+import { TextSessionComponent } from './text-session.component';
 
 describe('TypingInputComponent', () => {
-  let component: TypingSessionComponent;
-  let fixture: ComponentFixture<TypingSessionComponent>;
+  let component: TextSessionComponent;
+  let fixture: ComponentFixture<TextSessionComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [TypingSessionComponent]
+      declarations: [TextSessionComponent]
     });
-    fixture = TestBed.createComponent(TypingSessionComponent);
+    fixture = TestBed.createComponent(TextSessionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
