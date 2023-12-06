@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AiTypingComponent } from './ai-typing.component';
+import { HandsComponent } from './hands.component';
 
-describe('AiTypingComponent', () => {
-  let component: AiTypingComponent;
-  let fixture: ComponentFixture<AiTypingComponent>;
+describe('HandsComponent', () => {
+  let component: HandsComponent;
+  let fixture: ComponentFixture<HandsComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [AiTypingComponent]
+      declarations: [HandsComponent]
     });
-    fixture = TestBed.createComponent(AiTypingComponent);
+    fixture = TestBed.createComponent(HandsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

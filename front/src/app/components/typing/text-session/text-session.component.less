@@ -11,8 +11,13 @@
     padding: 0 15px;
     max-height: 210px;
     overflow: scroll;
+    scrollbar-width: none;
     scroll-behavior: smooth;
     transition: color 150ms, background-color 150ms, box-shadow 150ms, max-height 150ms ease-in-out;
+  }
+
+  .text-input::-webkit-scrollbar {
+    display: none;
   }
 
   .text-input-not-focus {
@@ -23,7 +28,7 @@
     cursor: pointer;
   }
 
-  .typing-3-lines {
+  .three-lines {
     max-height: 105px;
     overflow: hidden;
   }

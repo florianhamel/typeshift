@@ -26,7 +26,7 @@ public class AuthenticationController {
   private final AuthenticationService authenticationService;
 
   @PostMapping("/log-in")
-  public ResponseEntity<LogInDTO> login(@RequestBody LogInForm logInForm, HttpServletResponse response) {
+  public ResponseEntity<LogInDTO> login(@Valid @RequestBody LogInForm logInForm, HttpServletResponse response) {
     var logInDTO = authenticationService.authenticate(logInForm, response);
     log.info("User [{}] was successfully authenticated!", logInDTO.getUsername());
     return ResponseEntity.ok(logInDTO);

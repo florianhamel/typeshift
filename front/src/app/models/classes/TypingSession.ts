@@ -1,4 +1,6 @@
 import { isDefined } from '../../utils/checks';
+import { TSessionStatus } from '../types';
+import { signal, WritableSignal } from '@angular/core';
 
 export interface IKeystroke {
   source: string;
@@ -15,9 +17,9 @@ export class TypingSession {
   keystrokes: IKeystroke[] = [];
   keystrokeTotal: number = 0;
   keystrokeErrors: number = 0;
-  closed: boolean = false;
+  status: WritableSignal<TSessionStatus> = signal<TSessionStatus>('notStarted');
 
-  get keystroke(): IKeystroke {
+  get keystroke(): IKeystroke | undefined {
     return this.keystrokes[this.index];
   }
 
@@ -48,5 +50,17 @@ export class TypingSession {
 
   get accuracy(): number {
     return 100 - (this.keystrokeErrors * 100 / this.keystrokeTotal);
+  }
+
+  get notStarted(): boolean {
+    return (this.status() === 'notStarted');
+  }
+
+  get inProgress(): boolean {
+    return (this.status() === 'inProgress');
+  }
+
+  get closed(): boolean {
+    return (this.status() === 'closed');
   }
 }

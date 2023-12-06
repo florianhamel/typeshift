@@ -1,0 +1,22 @@
+<div class="flex column items-center gap-35">
+  <div class="keyboard">
+    <div *ngFor="let row of keyboard" class="keyboard-row">
+      <div *ngFor="let keyboardKey of row"
+           [ngClass]="{ 'error': isWrongKey(keyboardKey) }"
+           [ngStyle]="{ 'background-color': keyColor(keyboardKey) }"
+           class="key {{ keyboardKey.class }}">
+        <div class="flex column items-center justify-center">
+          <span>{{ displayShiftKey(keyboardKey) }}</span>
+          <span>{{ displayKey(keyboardKey) }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hands-container">
+    <div *ngFor="let hand of hands" class="hand">
+      <div *ngFor="let finger of hand" [ngStyle]="{ 'background-color': fingerColor(finger)}"
+           class="finger {{ finger.class }}">
+      </div>
+    </div>
+  </div>
+</div>
