@@ -16,7 +16,7 @@ import { ExerciseSessionService } from '../../../services/typing/session/exercis
 import { ExerciseService } from '../../../services/typing/course/exercise.service';
 import { SessionService } from '../../../services/typing/session/session.service';
 
-// TODO implement abstract SessionComponent?
+// TODO implement abstract SessionComponent??
 @Component({
   selector: 'app-exercise',
   templateUrl: './exercise.component.html',
