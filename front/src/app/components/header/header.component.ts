@@ -12,7 +12,8 @@ export class HeaderComponent {
   authenticationDialogRef: MatDialogRef<AuthenticationComponent> | undefined;
   isAuthenticated: Signal<boolean> = this.userInfo.get('isAuthenticated');
   username: Signal<string> = this.userInfo.get('username');
-  areSettingsOpen: boolean = false;
+
+  // areSettingsOpen: boolean = false;
 
   constructor(private readonly userInfo: UserInfo,
               private readonly dialog: MatDialog) {
