@@ -1,0 +1,15 @@
+<div #sessionContainerRef
+     (keydown)="keyPressed($event)"
+     class="exercise-container"
+     tabindex="0">
+  <div *ngIf="!session().closed; else placeholderTemplate" class="flex items-center gap-20">
+    <span *ngIf="!!session().keystroke" class="character current">{{ session().keystroke?.source }}</span>
+    <span *ngIf="!!session().nextKeystroke" class="character next">{{ session().nextKeystroke?.source }}</span>
+  </div>
+  <ng-template #placeholderTemplate>
+    <span class="exercise-end">{{ 'Exercise terminated \u2713' }}</span>
+  </ng-template>
+  <app-typing-data></app-typing-data>
+  <app-keyboard [key]="session().keystroke?.key"
+                [source]="session().keystroke?.source"></app-keyboard>
+</div>

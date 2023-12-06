@@ -35,7 +35,7 @@ public class TypeshiftApplicationSecurity {
       .exceptionHandling(handler -> handler
         .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
       .authorizeHttpRequests(auth -> auth
-        .requestMatchers("/auth/**").permitAll()
+        .requestMatchers("/auth/**", "/exercise/**").permitAll()
         .anyRequest()
         .authenticated());
     return http.build();

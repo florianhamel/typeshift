@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { IWikiData } from '../../models/interfaces/typing';
+import { IWikiData } from '../../../models/interfaces/typing';
 
 @Injectable({
   providedIn: 'root'

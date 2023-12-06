@@ -1,0 +1,126 @@
+@import '~src/variables';
+
+:host {
+  // keyboard
+  .keyboard {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    background-color: @tsw-white;
+    border: 1px solid black;
+    border-radius: 20px;
+    box-shadow: 0 1px 0 0 @tsw-black;
+    padding: 10px;
+  }
+
+  .keyboard-row {
+    display: flex;
+    gap: 5px;
+  }
+
+  .key {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.15rem;
+    border: 1px solid black;
+    border-radius: 5px;
+    box-shadow: 0 1px 0 0 @tsw-black;
+    height: 50px;
+  }
+
+  .error {
+    outline: solid 3px lightcoral;
+  }
+
+  .basic-key {
+    width: 50px;
+  }
+
+  .mark-key {
+    position: relative;
+  }
+
+  .mark-key:after {
+    content: "";
+    position: absolute;
+    color: @tsw-white;
+    font-size: 2rem;
+    border: 1px solid black;
+    border-radius: 10px;
+    box-shadow: 0.5px 0.5px 0 0 @tsw-black;
+    top: 40px;
+    width: 10px;
+    height: 1px;
+  }
+
+  .delete-key {
+    width: 78px;
+  }
+
+  .tab-key {
+    width: 78px;
+  }
+
+  .caps-key {
+    width: 93px;
+  }
+
+  .return-key {
+    width: 93px;
+  }
+
+  .shift-key {
+    width: 122px;
+  }
+
+  .command-key {
+    width: 61px;
+  }
+
+  .space-key {
+    width: 286px;
+  }
+
+  // hands
+  .hands-container {
+    display: flex;
+    gap: 80px;
+  }
+
+  .hand {
+    display: flex;
+    gap: 3px;
+  }
+
+  .finger {
+    border: 1px solid black;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    width: 35px;
+  }
+
+  .auricular {
+    margin-top: 50px;
+    height: 80px;
+  }
+
+  .ring {
+    margin-top: 30px;
+    height: 100px;
+  }
+
+  .middle {
+    height: 130px;
+  }
+
+  .index {
+    margin-top: 20px;
+    height: 110px;
+  }
+
+  .thumb {
+    margin-top: 80px;
+    height: 70px;
+  }
+}
